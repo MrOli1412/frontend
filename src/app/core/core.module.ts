@@ -8,14 +8,21 @@ import {NotFoundPageComponent} from './pages/not-found-page/not-found-page.compo
 import {MenuComponent} from './components/menu/menu.component';
 import {FooterComponent} from './components/footer/footer.component';
 import {BrowserModule} from "@angular/platform-browser";
+import { RegisterPageComponent } from './pages/register-page/register-page.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {SharedModule} from "../shared/shared.module";
+import {ReactiveFormsModule} from "@angular/forms";
 
 
 @NgModule({
-  declarations: [AppComponent, HomePageComponent, NotFoundPageComponent, MenuComponent, FooterComponent],
+  declarations: [AppComponent, HomePageComponent, NotFoundPageComponent, MenuComponent, FooterComponent, RegisterPageComponent],
   imports: [
     CommonModule,
     CoreRoutingModule,
-    BrowserModule
+    BrowserModule,
+    BrowserAnimationsModule,
+    SharedModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
