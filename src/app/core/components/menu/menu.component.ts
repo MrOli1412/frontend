@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-menu',
@@ -6,10 +6,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent implements OnInit {
+  isActive: boolean = true;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }
 
+  logout() {
+    this.isActive = false;
+  }
 }

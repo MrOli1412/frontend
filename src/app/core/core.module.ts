@@ -12,10 +12,11 @@ import { RegisterPageComponent } from './pages/register-page/register-page.compo
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {SharedModule} from "../shared/shared.module";
 import {ReactiveFormsModule} from "@angular/forms";
+import { LoginPageComponent } from './pages/login-page/login-page.component';
 
 
 @NgModule({
-  declarations: [AppComponent, HomePageComponent, NotFoundPageComponent, MenuComponent, FooterComponent, RegisterPageComponent],
+  declarations: [AppComponent, HomePageComponent, NotFoundPageComponent, MenuComponent, FooterComponent, RegisterPageComponent, LoginPageComponent],
   imports: [
     CommonModule,
     CoreRoutingModule,

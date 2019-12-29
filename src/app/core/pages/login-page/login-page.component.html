@@ -1,0 +1,14 @@
+<mat-card>
+  <form class="form" [formGroup]="loginFormGroup" (ngSubmit)="login()">
+    <mat-form-field style="width: 100%" appearance="outline">
+      <input matInput placeholder="Login or email" formControlName="login">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <input matInput placeholder="Password" formControlName="password">
+    </mat-form-field>
+    <div class="action-buttons">
+      <button mat-raised-button >Cancel</button>
+      <button mat-raised-button color="primary" type="submit">Register</button>
+    </div>
+  </form>
+</mat-card>

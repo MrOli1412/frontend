@@ -1,1 +1,9 @@
-<p>menu works!</p>
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span routerLink="register">Register</span>
+    <span *ngIf="!isActive; else login" routerLink="login">Login</span>
+    <ng-template #login>
+      <span (click)="logout()">Logout</span>
+    </ng-template>
+  </mat-toolbar-row>
+</mat-toolbar>
