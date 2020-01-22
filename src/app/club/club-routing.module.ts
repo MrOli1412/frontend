@@ -5,12 +5,12 @@ import {ClubPageComponent} from "./pages/club-page/club-page.component";
 
 
 const routes: Routes = [
+  // {
+  //   path: '',
+  //   component: ClubListComponent
+  // },
   {
     path: '',
-    component: ClubListComponent
-  },
-  {
-    path: ':id',
     component: ClubPageComponent
   }
 ];

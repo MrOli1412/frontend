@@ -1,14 +1,27 @@
-<app-menu class="menu"></app-menu>
+<app-menu class="menu" [sidenav]="sidenav"></app-menu>
 <mat-sidenav-container>
-  <mat-sidenav #sidenav>
-    <span>Side nav context</span>
+  <mat-sidenav #sidenav [mode]="'side'">
+    <mat-list>
+      <mat-list-item>
+        <span routerLink="players">Players</span>
+      </mat-list-item>
+      <mat-list-item>
+        <span routerLink="club">Club</span>
+      </mat-list-item>
+      <mat-list-item>
+        <span routerLink="teams">Team</span>
+      </mat-list-item>
+      <mat-list-item>
+        <span routerLink="matches">Match</span>
+      </mat-list-item>
+    </mat-list>
   </mat-sidenav>
   <mat-sidenav-content>
-    <span (click)="sidenav.toggle()">Toggle</span>
     <div class="context">
       <router-outlet></router-outlet>
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>
+
 
 <app-footer class="footer"></app-footer>

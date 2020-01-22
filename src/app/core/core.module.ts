@@ -13,6 +13,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {SharedModule} from "../shared/shared.module";
 import {ReactiveFormsModule} from "@angular/forms";
 import { LoginPageComponent } from './pages/login-page/login-page.component';
+import { HttpClientModule} from "@angular/common/http";
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { LoginPageComponent } from './pages/login-page/login-page.component';
     BrowserModule,
     BrowserAnimationsModule,
     SharedModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
