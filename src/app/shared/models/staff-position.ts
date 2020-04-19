@@ -1,0 +1,8 @@
+export enum StaffPosition {
+  COACH = 'COACH',
+  SECOND_COACH = 'SECOND_COACH',
+  MASSEUR = 'MASSEUR',
+  MEDICAL_CARER = 'MEDICAL_CARER',
+  TEAM_MANAGER = 'TEAM_MANAGER',
+
+}

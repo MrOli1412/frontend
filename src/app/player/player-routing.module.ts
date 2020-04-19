@@ -7,12 +7,12 @@ import {PlayerPageComponent} from "./pages/player-page/player-page.component";
 
 const routes: Routes = [
   {
-    path: '',
+    path: ':teamId',
     component: PlayerListComponent
   },
   {
-    path:':id',
-    component:PlayerPageComponent
+    path: ':teamId/:playerId',
+    component: PlayerPageComponent
   }
 ];
 

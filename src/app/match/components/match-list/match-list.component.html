@@ -1,1 +1,22 @@
-<p>match-list works!</p>
+
+<ng-container>
+  <button mat-button (click)="addMatch()">Stwórz mecz</button>
+  <div *ngIf="matches">
+    <table cdk-table [dataSource]="dataSource" class="table table-striped">
+      <ng-container matColumnDef="firstName">
+        <th cdk-header-cell *matHeaderCellDef>Imię</th>
+        <td cdk-cell *matCellDef="let element">{{element.firstName}}</td>
+      </ng-container>
+      <ng-container matColumnDef="lastName">
+        <th cdk-header-cell *matHeaderCellDef>Nazwisko</th>
+        <td cdk-cell *matCellDef="let element">{{element.lastName}}</td>
+      </ng-container>
+      <ng-container matColumnDef="birthDay">
+        <th cdk-header-cell *matHeaderCellDef>Data urodzenia</th>
+        <td cdk-cell *matCellDef="let element">{{element.birthDay}}</td>
+      </ng-container>
+      <tr cdk-header-row *matHeaderRowDef="tableColumns"></tr>
+      <tr cdk-row *matRowDef="let row; columns: tableColumns;"></tr>
+    </table>
+  </div>
+</ng-container>

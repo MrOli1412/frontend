@@ -1,3 +1,4 @@
-<app-club-list-item [club]="club">
-
-</app-club-list-item>
+<ng-container *ngIf="club">
+  <app-club-list-item [club]="club"></app-club-list-item>
+  <app-team-list></app-team-list>
+</ng-container>

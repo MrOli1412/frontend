@@ -1,1 +1,2 @@
-<p>team-list works!</p>
+<app-team-panel></app-team-panel>
+<mat-button-toggle *ngFor="let team of teamList" [routerLink]="['../teams/'+team.id]">{{team.teamName}}</mat-button-toggle>

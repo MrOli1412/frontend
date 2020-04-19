@@ -20,6 +20,6 @@ export class MenuComponent implements OnInit {
 
   logout() {
     this.token.signOut();
-    window.location.reload();
+    window.location.href='/login'
   }
 }

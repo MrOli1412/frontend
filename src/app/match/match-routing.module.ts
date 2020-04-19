@@ -6,11 +6,11 @@ import {MatchPageComponent} from "./pages/match-page/match-page.component";
 
 const routes: Routes = [
   {
-    path: '',
+    path: ':teamId',
     component: MatchListComponent
   },
   {
-    path: ':id',
+    path: ':teamId/:id',
     component: MatchPageComponent
   }
 ];

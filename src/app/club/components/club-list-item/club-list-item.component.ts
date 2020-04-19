@@ -1,5 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Club} from "../../../shared/models/club";
+import {ClubService} from "../../services/club.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-club-list-item',
@@ -9,9 +11,11 @@ import {Club} from "../../../shared/models/club";
 export class ClubListItemComponent implements OnInit {
   @Input() club: Club;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }
+
 
 }

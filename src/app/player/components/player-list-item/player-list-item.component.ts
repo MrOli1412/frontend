@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {Player, PlayerShortInfo} from "../../../shared/models/player";
 
 @Component({
   selector: 'app-player-list-item',
@@ -6,8 +7,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./player-list-item.component.scss']
 })
 export class PlayerListItemComponent implements OnInit {
+  @Input() player: PlayerShortInfo;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }

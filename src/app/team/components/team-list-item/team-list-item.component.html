@@ -1,1 +1,5 @@
-<p>team-list-item works!</p>
+<h1>{{team.teamName}}</h1>
+
+<mat-button-toggle [routerLink]="['../../players/'+teamId]">Zawodnicy {{team.countPlayers}}</mat-button-toggle>
+<mat-button-toggle [routerLink]="['../../matches/'+teamId]">Mecze {{team.countMatches}}</mat-button-toggle>
+<!--<mat-button-toggle [routerLink]="['../dress']">Zawodnicy {{team.countPlayers}}</mat-button-toggle>-->

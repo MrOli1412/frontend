@@ -5,8 +5,14 @@ import {Dress} from "./dress";
 export interface Team {
   id?: any;
   teamName: string;
-  club: Club;
-  players: Player[];
-  dresses: Dress[];
+  players?: Player[];
+  dresses?: Dress[];
 
+}
+
+export interface TeamShortInfo {
+  teamName:string;
+  countPlayers:number;
+  countMatches:number;
+  countDress:number;
 }

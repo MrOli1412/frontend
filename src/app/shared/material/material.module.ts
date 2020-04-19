@@ -33,13 +33,14 @@ import {MatTableModule} from '@angular/material/table';
 import {MatSortModule} from '@angular/material/sort';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {BrowserModule} from "@angular/platform-browser";
+import {CdkTableModule} from "@angular/cdk/table";
+import {DragDropModule} from "@angular/cdk/drag-drop";
+import {ScrollingModule} from "@angular/cdk/scrolling";
 
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
-    BrowserModule,
-    BrowserAnimationsModule,
     MatCheckboxModule,
     MatCheckboxModule,
     MatButtonModule,
@@ -70,10 +71,12 @@ import {BrowserModule} from "@angular/platform-browser";
     MatSnackBarModule,
     MatTableModule,
     MatSortModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    CdkTableModule,
+    DragDropModule,
+    ScrollingModule
   ],
   exports: [
-    BrowserAnimationsModule,
     MatCheckboxModule,
     MatCheckboxModule,
     MatButtonModule,
@@ -104,7 +107,10 @@ import {BrowserModule} from "@angular/platform-browser";
     MatSnackBarModule,
     MatTableModule,
     MatSortModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    CdkTableModule,
+    DragDropModule,
+    ScrollingModule
   ]
 })
 export class MaterialModule { }
