@@ -1,0 +1,21 @@
+<h4 mat-dialog-title>Formularz</h4>
+<div mat-dialog-content>
+  <mat-vertical-stepper [linear]="true" #stepper>
+    <mat-step [stepControl]="fileUpload">
+      <ng-template matStepLabel>Plik z zawodnikami</ng-template>
+      <input type="file" name="avatar" (change)="onFileChange($event)"/>
+      <div>
+        <button mat-button (click)="onSubmit()">Convert</button>
+      </div>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Done</ng-template>
+      Wszystko gotowe, możesz zapisać zawodników
+      {{this.uploadedPlayers ? this.uploadedPlayers.length - 1 : ''}}
+      <div>
+        <button mat-button matStepperPrevious>Wróć</button>
+        <button mat-button (click)="savePlayers()">Zapisz</button>
+      </div>
+    </mat-step>
+  </mat-vertical-stepper>
+</div>

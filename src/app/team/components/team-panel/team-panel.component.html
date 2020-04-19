@@ -1,0 +1,14 @@
+<mat-card>
+  <form class="form" [formGroup]="teamForm" (ngSubmit)="register()">
+    <mat-form-field style="width: 100%" appearance="outline">
+      <mat-label>Nazwa drużyny</mat-label>
+      <input matInput placeholder="Nazwa drużyny" formControlName="teamName">
+      <mat-error *ngIf="teamName.hasError('required')">Nazwa drużyny jest wymagana</mat-error>
+    </mat-form-field>
+    <div class="action-buttons">
+      <button mat-raised-button (click)="reset()">Zamknij</button>
+      <button mat-raised-button color="primary" type="submit">Stwórz</button>
+    </div>
+  </form>
+</mat-card>
+

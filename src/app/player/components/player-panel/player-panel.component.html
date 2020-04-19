@@ -1,0 +1,68 @@
+<h4 mat-dialog-title>Formularz</h4>
+<div mat-dialog-content>
+  <mat-vertical-stepper [linear]="false">
+    <mat-step [stepControl]="requiredData">
+      <form [formGroup]="requiredData">
+        <ng-template matStepLabel>Dane podstawowe zawodnika</ng-template>
+        <mat-form-field>
+          <input matInput placeholder="Imię" formControlName="firstName" required>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Nazwisko" formControlName="lastName" required>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Numer licencji" formControlName="evidentialNumber" required>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput [matDatepicker]="birthDayPicker" placeholder="Data urodzin" formControlName="birthDay"
+                 required>
+          <mat-datepicker-toggle matSuffix [for]="birthDayPicker"></mat-datepicker-toggle>
+          <mat-datepicker #birthDayPicker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput [matDatepicker]="contractDatePicker" placeholder="Data uprawnienia"
+                 formControlName="contractDate" required>
+          <mat-datepicker-toggle matSuffix [for]="contractDatePicker"></mat-datepicker-toggle>
+          <mat-datepicker #contractDatePicker></mat-datepicker>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="optionalData">
+      <form [formGroup]="optionalData">
+        <ng-template matStepLabel>Dane dodatkowe</ng-template>
+        <mat-form-field>
+          <input matInput placeholder="Amator" formControlName="amateur">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Ostatni klub" formControlName="lastClub">
+        </mat-form-field>
+        <mat-form-field >
+          <mat-label>Typ transferu</mat-label>
+          <mat-select formControlName="transferType">
+            <mat-option *ngFor="let transfer of keys" [value]="transfer.value">
+              {{transfer.key}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Domyślny nr koszulki" formControlName="dressNumber">
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Done</ng-template>
+      Wszystko gotowe, możesz zapisać zawodnika
+      <div>
+        <button mat-button matStepperPrevious>Wróć</button>
+        <button mat-button (click)="submit()">Zapisz</button>
+      </div>
+    </mat-step>
+  </mat-vertical-stepper>
+</div>

@@ -1,0 +1,233 @@
+<h4 mat-dialog-title>Stowrzenie meczu</h4>
+<div mat-dialog-content>
+  <mat-horizontal-stepper [linear]="false" #stepper>
+
+    <mat-step [stepControl]="basicData">
+      <form [formGroup]="basicData">
+        <ng-template matStepLabel>Krok 1/3</ng-template>
+        <mat-form-field>
+          <mat-label>Nazwa drużyny</mat-label>
+          <input matInput placeholder="Nazwa drużyny" formControlName="teamName" required>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput [matDatepicker]="matchDay" placeholder="Data meczu" formControlName="matchDay"
+                 required>
+          <mat-datepicker-toggle matSuffix [for]="matchDay"></mat-datepicker-toggle>
+          <mat-datepicker #matchDay></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select formControlName="dress">
+            <mat-option *ngFor="let dress of dresses" [value]="dress.id">{{dress.color}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <section>
+          <mat-checkbox formControlName="isAway">Mecz wyjazdowy</mat-checkbox>
+        </section>
+      </form>
+      <div>
+        <button mat-button matStepperNext>Następny krok</button>
+      </div>
+    </mat-step>
+
+    <mat-step>
+      <form [formGroup]="playerForm">
+        <ng-template matStepLabel>Krok 2/3</ng-template>
+        <div class="row" style="height: 500px" *ngIf="players">
+          <mat-form-field style="width: 100%">
+            <input type="text"
+                   placeholder="Wybierz zawodnika"
+                   matInput
+                   formControlName="playerName"
+                   [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete" >
+              <mat-option style="cursor: pointer" *ngFor="let player of filteredPlayers" [value]="player.id"
+                          (click)="toFirstSquad(player)" (contextmenu)="toReserveSquad($event,player)">
+                {{player.firstName}} {{player.lastName}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+          <div *ngIf="isDrag">
+            <mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon>
+          </div>
+          <div class="example-container">
+            <mat-form-field>
+              <input matInput type="number" [value]="firstSquadPlayers.length" formControlName="firstSquad">
+            </mat-form-field>
+            <h3>{{firstSquadPlayers.length}}/11</h3>
+            <div
+              class="example-list"
+              cdkDropList
+              #firstSquad="cdkDropList"
+              [cdkDropListData]="firstSquadPlayers"
+              [cdkDropListConnectedTo]="[reserveSquad]"
+              (cdkDropListDropped)="drop($event)"
+            >
+              <div class="example-box" *ngFor="let player of firstSquadPlayers" cdkDrag
+                   (cdkDragStarted)="dragIsStart()" (cdkDragReleased)="dragIsStop($event)">
+                <mat-form-field appearance="legacy">
+                  <mat-label>Numer koszulki</mat-label>
+                  <input   type="number" matInput [value]="player.dressNumber" formControlName="firstSquadPlayerNumber" (focusout)="setPlayerNumber($event,player)">
+                  <span matSuffix>{{player.firstName}}</span>
+                </mat-form-field>
+              </div>
+
+            </div>
+          </div>
+          <div class="example-container">
+            <mat-form-field>
+              <input matInput type="number" [value]="reserveSquadPlayer.length.toString()"
+                     formControlName="reserveSquad">
+            </mat-form-field>
+            <h3>{{reserveSquadPlayer.length}}/6</h3>
+            <div
+              cdkDropList
+              class="example-list"
+              #reserveSquad="cdkDropList"
+              [cdkDropListData]="reserveSquadPlayer"
+              [cdkDropListConnectedTo]="[firstSquad]"
+              (cdkDropListDropped)="drop($event)"
+            >
+              <div class="example-box" *ngFor="let player of reserveSquadPlayer" cdkDrag
+                   (cdkDragEntered)="dragIsStart()" (cdkDragExited)="dragIsStop($event)">
+                <mat-form-field appearance="legacy">
+                  <mat-label>Numer koszulki</mat-label>
+                  <input   type="number" matInput [value]="player.dressNumber" formControlName="reservedSquadPlayerNumber">
+                  <span matSuffix>{{player.firstName}}</span>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </form>
+      <div>
+        <button mat-button matStepperPrevious>Poprzedni krok</button>
+        <button mat-button matStepperNext>Następny krok</button>
+      </div>
+    </mat-step>
+
+    <mat-step>
+      <form [formGroup]="playerFunction">
+              <ng-template matStepLabel>Krok 3/4</ng-template>
+        <mat-form-field style="width: 100%" *ngIf="firstSquadPlayers">
+          <mat-select
+            placeholder="Wybierz bramkarza"
+            formControlName="firstSquadGoalKeeper">
+            <mat-option style="cursor: pointer" *ngFor="let player of firstSquadPlayers" [value]="player.id">
+              {{player.firstName}} {{player.lastName}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field style="width: 100%" *ngIf="firstSquadPlayers">
+          <mat-select
+            placeholder="Wybierz kapitana"
+            formControlName="captain">
+            <mat-option style="cursor: pointer" *ngFor="let player of firstSquadPlayers" [value]="player.id">
+              {{player.firstName}} {{player.lastName}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field style="width: 100%" *ngIf="reserveSquadPlayer">
+          <mat-select
+            placeholder="Wybierz rezerwowego bramkarza"
+            formControlName="reservedSquadGoalKeeper">
+            <mat-option style="cursor: pointer" *ngFor="let player of reserveSquadPlayer" [value]="player.id">
+              {{player.firstName}} {{player.lastName}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </form>
+      <div>
+        <button mat-button matStepperPrevious>Poprzedni krok</button>
+        <button mat-button matStepperNext>Następny krok</button>
+      </div>
+
+    </mat-step>
+    <mat-step>
+      <form [formGroup]="personForm" >
+        <ng-template matStepLabel>Krok 3/3</ng-template>
+        <mat-form-field>
+          <input type="text"
+                 placeholder="Wybierz trenera"
+                 matInput
+                 formControlName="coach"
+                 [matAutocomplete]="autoCoach" required>
+          <mat-autocomplete #autoCoach="matAutocomplete" [displayWith]="getName">
+            <mat-option [value]="null">-</mat-option>
+            <mat-option *ngFor="let person of staffPeople"
+                        [value]="person">{{person.firstName}} {{person.lastName}}</mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text"
+                 placeholder="Wybierz drugiego trenera"
+                 matInput
+                 formControlName="secondCoach"
+                 [matAutocomplete]="autoSecondCoach">
+          <mat-autocomplete #autoSecondCoach="matAutocomplete" [displayWith]="getName">
+            <mat-option [value]="null">-</mat-option>
+            <mat-option *ngFor="let person of staffPeople"
+                        [value]="person">{{person.firstName}} {{person.lastName}}</mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text"
+                 placeholder="Wybierz masażystę"
+                 matInput
+                 formControlName="masseur"
+                 [matAutocomplete]="autoMasseur">
+          <mat-autocomplete #autoMasseur="matAutocomplete" [displayWith]="getName">
+            <mat-option [value]="null">-</mat-option>
+            <mat-option *ngFor="let person of staffPeople"
+                        [value]="person">{{person.firstName}} {{person.lastName}}</mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text"
+                 placeholder="Wybierz opiekę medyczną"
+                 matInput
+                 formControlName="medicalCarer"
+                 [matAutocomplete]="autoMedicalCarer" [required]="isAway.value">
+          <mat-autocomplete #autoMedicalCarer="matAutocomplete" [displayWith]="getName">
+            <mat-option [value]="null">-</mat-option>
+            <mat-option *ngFor="let person of staffPeople"
+                        [value]="person">{{person.firstName}} {{person.lastName}}</mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text"
+                 placeholder="Wybierz kierownika drużyny"
+                 matInput
+                 formControlName="teamManager"
+                 [matAutocomplete]="autoTeamManager">
+          <mat-autocomplete #autoTeamManager="matAutocomplete" [displayWith]="getName">
+            <mat-option [value]="null">-</mat-option>
+            <mat-option *ngFor="let person of staffPeople"
+                        [value]="person">{{person.firstName}} {{person.lastName}}</mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text"
+                 placeholder="Wybierz osobę dodatkowej funkcji"
+                 matInput
+                 formControlName="additionalPerson"
+                 [matAutocomplete]="autoAdditionalPerson" >
+          <mat-autocomplete #autoAdditionalPerson="matAutocomplete" [displayWith]="getName">
+            <mat-option [value]="null">-</mat-option>
+            <mat-option *ngFor="let person of staffPeople"
+                        [value]="person">{{person.firstName}} {{person.lastName}}</mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Dodatkowa funkcja" formControlName="additionalFunction"
+                 >
+        </mat-form-field>
+      </form>
+      <button mat-button (click)="saveMatch()">Zapisz mecz i generuj PDF</button>
+      <button mat-button (click)="createReport()">Generuj pdf</button>
+    </mat-step>
+
+
+  </mat-horizontal-stepper>
+</div>
