@@ -41,6 +41,14 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'dresses',
+    loadChildren: () => import('../dress/dress.module').then(m => m.DressModule)
+  },
+  {
+    path: 'staff',
+    loadChildren: () => import('../staff/staff.module').then(m => m.StaffModule)
+  },
+  {
     path: '**',
     component: NotFoundPageComponent
   }

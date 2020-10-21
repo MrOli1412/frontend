@@ -7,6 +7,7 @@ import {PlayerPanelComponent} from "../player-panel/player-panel.component";
 import {PlayerUploadComponent} from "../player-upload/player-upload.component";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatTableDataSource} from "@angular/material/table";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-player-list',
@@ -15,14 +16,18 @@ import {MatTableDataSource} from "@angular/material/table";
 })
 export class PlayerListComponent implements OnInit {
   players: PlayerShortInfo[] = [];
-  tableColumns:string[] =  ['firstName','lastName','birthDay'];
-  dataSource:MatTableDataSource<PlayerShortInfo>;
+  filteredPlayers;
 
-  constructor(private playerService: PlayerService, private route: ActivatedRoute, public dialog: MatDialog) {
+  constructor(private playerService: PlayerService,
+              private route: ActivatedRoute,
+              private toaster: ToastrService,
+              public dialog: MatDialog) {
+
   }
 
   ngOnInit() {
     this.getPlayers();
+
   }
 
   get getTeamId() {
@@ -32,7 +37,7 @@ export class PlayerListComponent implements OnInit {
   getPlayers() {
     this.playerService.getPlayerFromTeam(this.getTeamId).subscribe(data => {
       this.players = data;
-      this.dataSource =  new MatTableDataSource(data);
+      this.filteredPlayers = data;
 
       console.log()
     }, error => {
@@ -45,7 +50,7 @@ export class PlayerListComponent implements OnInit {
       data: {teamId: this.getTeamId}
     });
     dialogRef.afterClosed().subscribe(result => {
-      if(result){
+      if (result) {
         this.playerService.getPlayerFromTeam(this.getTeamId);
       }
     })
@@ -56,9 +61,22 @@ export class PlayerListComponent implements OnInit {
       data: {teamId: this.getTeamId}
     });
     dialogRef.afterClosed().subscribe(result => {
-      if(result){
-        this.playerService.getPlayerFromTeam(this.getTeamId);
+      if (result) {
+        this.toaster.success('Import zawodników zakończony pomyślnie', 'Sukces');
+        this.getPlayers();
       }
     })
+  }
+
+
+  filterPlayers(text) {
+    if (text) {
+      this.filteredPlayers = this.players.filter(player => player.lastName.toLowerCase().includes(text.toLowerCase())
+        || player.firstName.toLowerCase().includes(text.toLowerCase())
+        || player.evidentialNumber.toLowerCase().includes(text.toLowerCase())
+        || player.birthDay.toLowerCase().includes(text.toLowerCase()))
+    } else {
+      this.filteredPlayers = this.players;
+    }
   }
 }

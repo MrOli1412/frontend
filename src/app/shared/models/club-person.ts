@@ -1,4 +1,5 @@
 import {StaffPosition} from "./staff-position";
+import {Team} from "./team";
 
 
 export interface ClubPerson {
@@ -6,7 +7,7 @@ export interface ClubPerson {
   firstName: string;
   lastName: string;
   licenseNumber: string;
-  isDefault: boolean;
   position: StaffPosition;
   odderFunction: string;
+  teams ?:Team[];
 }

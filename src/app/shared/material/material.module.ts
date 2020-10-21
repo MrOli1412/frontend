@@ -1,9 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatCheckboxModule} from '@angular/material';
-import {MatButtonModule} from '@angular/material';
 import {MatInputModule} from '@angular/material/input';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatDatepickerModule} from '@angular/material/datepicker';
@@ -32,10 +29,12 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatTableModule} from '@angular/material/table';
 import {MatSortModule} from '@angular/material/sort';
 import {MatPaginatorModule} from '@angular/material/paginator';
-import {BrowserModule} from "@angular/platform-browser";
 import {CdkTableModule} from "@angular/cdk/table";
 import {DragDropModule} from "@angular/cdk/drag-drop";
 import {ScrollingModule} from "@angular/cdk/scrolling";
+import {MatCheckboxModule} from "@angular/material/checkbox";
+import {MatButtonModule} from "@angular/material/button";
+import {MatNativeDateModule} from "@angular/material/core";
 
 @NgModule({
   declarations: [],
@@ -74,7 +73,8 @@ import {ScrollingModule} from "@angular/cdk/scrolling";
     MatPaginatorModule,
     CdkTableModule,
     DragDropModule,
-    ScrollingModule
+    ScrollingModule,
+    MatNativeDateModule
   ],
   exports: [
     MatCheckboxModule,
@@ -110,7 +110,8 @@ import {ScrollingModule} from "@angular/cdk/scrolling";
     MatPaginatorModule,
     CdkTableModule,
     DragDropModule,
-    ScrollingModule
+    ScrollingModule,
+    MatNativeDateModule
   ]
 })
 export class MaterialModule { }

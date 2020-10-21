@@ -17,6 +17,9 @@ export class MatchService {
   getMatches(teamId) {
     return this.http.get<Match[]>(`${this.URL}/${teamId}`);
   }
+  getMatch(teamId,id) {
+    return this.http.get<Match[]>(`${this.URL}/${teamId}/${id}`);
+  }
 
   createMatch(teamId, match: Match) {
     return this.http.post<Match>(`${this.URL}/save/${teamId}`, match);

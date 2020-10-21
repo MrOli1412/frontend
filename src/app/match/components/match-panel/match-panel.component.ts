@@ -1,6 +1,15 @@
-import {AfterViewInit, Component, HostListener, Inject, OnDestroy, OnInit} from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  HostListener,
+  Inject,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+  ViewChildren
+} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/core";
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatOption} from "@angular/material/core";
 import {MAT_MOMENT_DATE_FORMATS, MomentDateAdapter} from "@angular/material-moment-adapter";
 import {Player} from "../../../shared/models/player";
 import {moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
@@ -12,14 +21,28 @@ import {Match} from "../../../shared/models/match";
 import * as moment from "moment";
 import {MatchService} from "../../services/match.service";
 import * as FileSaver from 'file-saver';
+import {MatAutocomplete, MatAutocompleteTrigger} from "@angular/material/autocomplete";
+import {MatDatepickerInputEvent} from "@angular/material/datepicker";
+
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'LL'
+  },
+  display: {
+    dateInput: 'DD-MMMM-YYYY',
+    monthYearLabel: 'YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'YYYY'
+  }
+};
 
 @Component({
   selector: 'app-match-panel',
   templateUrl: './match-panel.component.html',
   styleUrls: ['./match-panel.component.scss'],
   providers: [
-    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
-    {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS }
   ]
 })
 export class MatchPanelComponent implements OnInit, OnDestroy, AfterViewInit {
@@ -36,6 +59,7 @@ export class MatchPanelComponent implements OnInit, OnDestroy, AfterViewInit {
   teamId: string;
   isDrag = false;
   match: Match;
+  @ViewChild("auto") auto: MatAutocompleteTrigger;
 
 
   constructor(private fb: FormBuilder,
@@ -59,10 +83,12 @@ export class MatchPanelComponent implements OnInit, OnDestroy, AfterViewInit {
     this.playerName.valueChanges.subscribe(data => {
       this.filteredPlayers = data ? this.filterPlayers(this.players, data) : this.players.slice();
     });
-    if (this.staffPeople) {
-      const defaultCoach = this.staffPeople.find(coach => coach.isDefault && coach.position === StaffPosition.COACH);
-      this.setDefaultStaffPeople();
-    }
+
+    this.matchDay.valueChanges.subscribe(value => {
+
+      const date = new Date(value);
+      console.log(date.toLocaleDateString());
+    })
   }
 
 
@@ -134,9 +160,12 @@ export class MatchPanelComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
 
-  toFirstSquad(player: Player) {
+  toFirstSquad(event:Event,player: Player,trigger:MatAutocompleteTrigger) {
+    event.stopPropagation();
+    event.preventDefault();
+    trigger.closePanel();
     this.firstSquadPlayers.push(player);
-    this.players.splice(this.players.indexOf(player), 1)
+    this.players.splice(this.players.indexOf(player), 1);
     this.playerName.reset();
   }
 
@@ -152,8 +181,10 @@ export class MatchPanelComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   @HostListener('contextmenu', ['$event'])
-  toReserveSquad(event, player: Player) {
+  toReserveSquad(event, player: Player,trigger:MatAutocompleteTrigger) {
+    event.stopPropagation();
     event.preventDefault();
+    trigger.closePanel();
     this.reserveSquadPlayer.push(player);
     this.players.splice(this.players.indexOf(player), 1);
     this.playerName.reset();
@@ -177,34 +208,10 @@ export class MatchPanelComponent implements OnInit, OnDestroy, AfterViewInit {
     this.match.teamName = this.teamName.value;
     this.match.isFinish = false;
     this.match.isAway = this.isAway.value;
-    this.match.matchDate = moment(this.matchDay.value).toISOString();
+    this.match.matchDate = new Date(this.matchDay.value).toLocaleTimeString();
     this.match.staffPeople = this.prepareStaffPersons();
   }
 
-  private setDefaultStaffPeople() {
-    let clubPerson = this.staffPeople.filter(person => person.isDefault);
-    if (clubPerson) {
-      clubPerson.forEach(obj => {
-        switch (obj.position) {
-          case StaffPosition.COACH:
-            this.personForm.get('coach').setValue(obj);
-            break;
-          case StaffPosition.SECOND_COACH:
-            this.personForm.get('secondCoach').setValue(obj);
-            break;
-          case StaffPosition.MEDICAL_CARER:
-            this.personForm.get('masseur').setValue(obj);
-            break;
-          case StaffPosition.MASSEUR:
-            this.personForm.get('medicalCarer').setValue(obj);
-            break;
-          case StaffPosition.TEAM_MANAGER:
-            this.personForm.get('teamManager').setValue(obj);
-            break;
-        }
-      })
-    }
-  }
 
   prepareStaffPersons() {
     let staffPeople = [];
@@ -334,4 +341,7 @@ export class MatchPanelComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
 
+  dateChanged(event: MatDatepickerInputEvent<unknown, unknown>) {
+    console.log(event);
+  }
 }

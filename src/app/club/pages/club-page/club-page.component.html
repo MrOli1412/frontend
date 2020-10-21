@@ -1,4 +1,44 @@
-<ng-container *ngIf="club">
-  <app-club-list-item [club]="club"></app-club-list-item>
-  <app-team-list></app-team-list>
+<ng-container *ngIf="club" >
+  <h2 class="text-center">{{club.clubName}}</h2>
+  <div class="row ml-0 mr-0  ">
+    <div class="col-md-3  d-flex">
+      <div class="card teams-card new-team-card " (click)="addTeam(null)" >
+        <div class="card-body ">
+          <h1 class="card-title">Dodaj drużynę</h1>
+          <div class="row d-inline-flex ">
+            <div class="col-md-2  card-link p-0  ">
+              <fa-icon [icon]="plusIcon" size="2x" class=""></fa-icon>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 d-flex"  *ngFor="let team of club.teams">
+        <div class="card teams-card  ">
+          <div class="card-body ">
+            <h1 class="card-title">{{team.teamName}}</h1>
+            <div class="row d-inline-flex pt-2">
+              <div class="col-md-2 mx-auto card-link  p-0" [routerLink]="['../players/'+team.id]">
+                <fa-icon [icon]="groupIcon" size="2x" class=""></fa-icon>
+                <span class="badge  badge-margin">32</span>
+              </div>
+              <div class="col-md-2 mx-auto card-link p-0" [routerLink]="['../matches/'+team.id]">
+                <fa-icon [icon]="footballIcon" size="2x" class=""></fa-icon>
+                <span class="badge  badge-margin">32</span>
+
+              </div>
+              <div class="col-md-2 mx-auto card-link p-0 " [routerLink]="['../dresses/'+team.id]">
+                <fa-icon [icon]="tShirtIcon" size="2x" class=""></fa-icon>
+                <span class="badge  badge-margin">32</span>
+              </div>
+              <div class="col-md-2 mx-auto card-link p-0" [routerLink]="['../staff/'+team.id]">
+                <fa-icon [icon]="userIcon" size="2x" class=""></fa-icon>
+                <span class="badge  badge-margin">32</span>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
 </ng-container>

@@ -3,6 +3,8 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {User} from "../../../shared/models/user";
 import {Club} from "../../../shared/models/club";
 import {AuthService} from "../../services/register.service";
+import {ToastrService} from "ngx-toastr";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-register-page',
@@ -13,7 +15,7 @@ export class RegisterPageComponent implements OnInit {
   registerFormGroup: FormGroup;
   user: User;
 
-  constructor(private fb: FormBuilder, private registerService: AuthService) {
+  constructor(private fb: FormBuilder, private registerService: AuthService, private toaster: ToastrService, private router: Router) {
   }
 
   ngOnInit() {
@@ -58,8 +60,12 @@ export class RegisterPageComponent implements OnInit {
     }
     this.registerService.createAccount(this.user).subscribe(data => {
       console.log(data)
+      this.toaster.success("Rejestracja wykonana pomyślnie", "Sukces");
+      window.location.href='/login'
     }, error => {
       console.log(error);
+      this.toaster.error("Błąd podczas procesu rejestracji", "Błąd");
+
     });
   }
 

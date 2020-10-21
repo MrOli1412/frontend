@@ -1,22 +1,36 @@
 
-<ng-container>
-  <button mat-button (click)="addMatch()">Stwórz mecz</button>
-  <div *ngIf="matches">
-    <table cdk-table [dataSource]="dataSource" class="table table-striped">
-      <ng-container matColumnDef="firstName">
-        <th cdk-header-cell *matHeaderCellDef>Imię</th>
-        <td cdk-cell *matCellDef="let element">{{element.firstName}}</td>
-      </ng-container>
-      <ng-container matColumnDef="lastName">
-        <th cdk-header-cell *matHeaderCellDef>Nazwisko</th>
-        <td cdk-cell *matCellDef="let element">{{element.lastName}}</td>
-      </ng-container>
-      <ng-container matColumnDef="birthDay">
-        <th cdk-header-cell *matHeaderCellDef>Data urodzenia</th>
-        <td cdk-cell *matCellDef="let element">{{element.birthDay}}</td>
-      </ng-container>
-      <tr cdk-header-row *matHeaderRowDef="tableColumns"></tr>
-      <tr cdk-row *matRowDef="let row; columns: tableColumns;"></tr>
+  <button mat-button (click)="addMatch()" class="float-right">Stwórz mecz</button>
+  <mat-form-field class="float-left">
+    <input matInput placeholder="Szukaj"  (keyup) = "filterMatch($event.target.value)">
+  </mat-form-field>
+  <div class="table-responsive table-hover table-wrapper-scroll-y my-custom-scrollbar" *ngIf="filteredMatches">
+    <table class="table">
+      <thead>
+      <tr>
+        <th style="width: 25%">Data</th>
+        <th style="width: 25%">Mecz wyjazdowy</th>
+        <th style="width: 25%">Wypełniony raport pomeczowy</th>
+        <th style="width: 25%">Szczegóły</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let match of filteredMatches" >
+
+        <th style="width: 25%">{{match.matchDate}}</th>
+        <th style="width: 25%">
+          <mat-icon *ngIf="match.isAway" color="primary">done</mat-icon>
+          <mat-icon *ngIf="!match.isAway" color="warn">clear</mat-icon>
+        </th>
+        <th style="width: 25%">
+
+          <mat-icon *ngIf="match.isFinish" color="primary">done</mat-icon>
+          <mat-icon *ngIf="!match.isFinish" color="warn">clear</mat-icon>
+        </th>
+        <th style="width: 25%">
+          <mat-icon  >edit</mat-icon>
+        </th>
+
+      </tr>
+      </tbody>
     </table>
   </div>
-</ng-container>

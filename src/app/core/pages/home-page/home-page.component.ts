@@ -13,6 +13,7 @@ export class HomePageComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.authService.isAuthenticated());
     this.authService.isAuthenticated() ? this.router.navigate(['club']) : this.router.navigate(['login']);
   }
 

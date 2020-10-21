@@ -1,27 +1,13 @@
-<app-menu class="menu" [sidenav]="sidenav"></app-menu>
-<mat-sidenav-container>
-  <mat-sidenav #sidenav [mode]="'side'">
-    <mat-list>
-      <mat-list-item>
-        <span routerLink="players">Players</span>
-      </mat-list-item>
-      <mat-list-item>
-        <span routerLink="club">Club</span>
-      </mat-list-item>
-      <mat-list-item>
-        <span routerLink="teams">Team</span>
-      </mat-list-item>
-      <mat-list-item>
-        <span routerLink="matches">Match</span>
-      </mat-list-item>
-    </mat-list>
-  </mat-sidenav>
-  <mat-sidenav-content>
-    <div class="context">
-      <router-outlet></router-outlet>
+<app-menu (actionEmitter)="selectAction($event)" class="menu" style="height: 10vh"></app-menu>
+<div *ngIf="isAuthenticated; else login">
+  <div class="container body" >
+    <div class="text-center"  style="max-height: 76vh">
+        <router-outlet></router-outlet>
     </div>
-  </mat-sidenav-content>
-</mat-sidenav-container>
-
-
-<app-footer class="footer"></app-footer>
+  </div>
+  <app-footer class="foot" ></app-footer>
+</div>
+<ng-template #login>
+  <app-login-page *ngIf="selectedAction === 'login'"></app-login-page>
+  <app-register-page *ngIf="selectedAction === 'register'"></app-register-page>
+</ng-template>

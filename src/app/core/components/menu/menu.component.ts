@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {TokenStorageService} from "../../../shared/services/token-storage.service";
 import {Router} from "@angular/router";
 
@@ -8,8 +8,8 @@ import {Router} from "@angular/router";
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent implements OnInit {
-  @Input() sidenav;
   isActive: boolean;
+  @Output() actionEmitter = new EventEmitter();
 
   constructor(private token: TokenStorageService, private router: Router) {
     this.isActive = this.token.isAuthenticated()
@@ -20,6 +20,12 @@ export class MenuComponent implements OnInit {
 
   logout() {
     this.token.signOut();
-    window.location.href='/login'
+    window.location.href = '/login'
+  }
+
+
+
+  callAction(name: string) {
+    this.actionEmitter.emit(name);
   }
 }

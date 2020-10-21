@@ -5,8 +5,6 @@ import {TeamPageComponent} from "./pages/team-page/team-page.component";
 
 
 const routes: Routes = [
-  {path:'',
-  component:TeamListComponent},
   {
     path:':id',
     component:TeamPageComponent

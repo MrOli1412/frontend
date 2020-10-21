@@ -10,6 +10,8 @@ import {BrowserModule} from "@angular/platform-browser";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {SharedModule} from "../shared/shared.module";
 import {JwtModule} from "@auth0/angular-jwt";
+import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
+import {MatBadgeModule} from "@angular/material/badge";
 
 
 @NgModule({
@@ -17,13 +19,15 @@ import {JwtModule} from "@auth0/angular-jwt";
   exports: [
     ClubPageComponent
   ],
-  imports: [
-    CommonModule,
-    ClubRoutingModule,
-    TeamModule,
-    SharedModule,
+    imports: [
+        CommonModule,
+        ClubRoutingModule,
+        TeamModule,
+        SharedModule,
+        FontAwesomeModule,
+        MatBadgeModule,
 
 
-  ]
+    ]
 })
 export class ClubModule { }

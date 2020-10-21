@@ -1,1 +1,24 @@
-<p>dress-list works!</p>
+<div >
+  <mat-form-field class="float-left">
+    <input matInput placeholder="Szukaj" (keyup)="filterDress($event.target.value)">
+  </mat-form-field>
+  <button mat-button (click)="addDress()" class="float-right">Dodaj stroje</button>
+  <div class="table-responsive table-hover table-wrapper-scroll-y my-custom-scrollbar" *ngIf="filteredDress">
+    <table class="table">
+      <thead>
+      <tr>
+        <th style="width: 20%">Id</th>
+        <th style="width: 30%">Kolor</th>
+        <th style="width: 50%">dozwolone numery</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let dress of filteredDress">
+        <th style="width: 20%">{{dress.id}}</th>
+        <th style="width: 30%">{{dress.color}}</th>
+        <th style="width: 50%">{{dress.allowedNumbers}}</th>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

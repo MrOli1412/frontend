@@ -1,1 +1,13 @@
-<p>dress-panel works!</p>
+<h4 mat-dialog-title>Formularz</h4>
+<div mat-dialog-content style="min-width: 500px">
+      <form [formGroup]="dressForm" class="pt-2">
+        <ng-template matStepLabel>Dane podstawowe</ng-template>
+        <mat-form-field class="col-md-12S">
+          <mat-label>Kolor strojów</mat-label>
+          <input matInput placeholder="Imię" formControlName="color" required>
+        </mat-form-field>
+        <div class="pt-2">
+          <button mat-button  class="float-right" color="primary" (click)="submit()">Zapisz</button>
+        </div>
+      </form>
+</div>

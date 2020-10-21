@@ -1,24 +1,25 @@
-
-
-<ng-container>
-  <button mat-button (click)="addPlayer()">Dodaj zawodnika</button>
-  <button mat-button (click)="importPlayers()">Importuj zawodników</button>
-  <div *ngIf="players">
-    <table cdk-table [dataSource]="dataSource" class="table table-striped">
-      <ng-container matColumnDef="firstName">
-        <th cdk-header-cell *matHeaderCellDef>Imię</th>
-        <td cdk-cell *matCellDef="let element">{{element.firstName}}</td>
-      </ng-container>
-      <ng-container matColumnDef="lastName">
-        <th cdk-header-cell *matHeaderCellDef>Nazwisko</th>
-        <td cdk-cell *matCellDef="let element">{{element.lastName}}</td>
-      </ng-container>
-      <ng-container matColumnDef="birthDay">
-        <th cdk-header-cell *matHeaderCellDef>Data urodzenia</th>
-        <td cdk-cell *matCellDef="let element">{{element.birthDay}}</td>
-      </ng-container>
-      <tr cdk-header-row *matHeaderRowDef="tableColumns"></tr>
-      <tr cdk-row *matRowDef="let row; columns: tableColumns;"></tr>
+<div >
+  <mat-form-field class="float-left">
+    <input matInput placeholder="Szukaj" (keyup)="filterPlayers($event.target.value)">
+  </mat-form-field>
+  <button mat-button (click)="addPlayer()" class="float-right">Dodaj zawodnika</button>
+  <button mat-button (click)="importPlayers()" class="float-right">Importuj zawodników</button>
+  <div class="table-responsive table-hover table-wrapper-scroll-y my-custom-scrollbar" *ngIf="filteredPlayers">
+    <table class="table">
+      <thead>
+      <tr>
+        <th style="width: 33.33%">Imie</th>
+        <th style="width: 33.33%">Nazwisko</th>
+        <th style="width: 33.33%">Data urodzenia</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let player of filteredPlayers">
+        <th style="width: 33.33%">{{player.firstName}}</th>
+        <th style="width: 33.33%">{{player.lastName}}</th>
+        <th style="width: 33.33%">{{player.birthDay}}</th>
+      </tr>
+      </tbody>
     </table>
   </div>
-</ng-container>
+</div>
