@@ -24,25 +24,13 @@ import * as FileSaver from 'file-saver';
 import {MatAutocomplete, MatAutocompleteTrigger} from "@angular/material/autocomplete";
 import {MatDatepickerInputEvent} from "@angular/material/datepicker";
 
-export const MY_FORMATS = {
-  parse: {
-    dateInput: 'LL'
-  },
-  display: {
-    dateInput: 'DD-MMMM-YYYY',
-    monthYearLabel: 'YYYY',
-    dateA11yLabel: 'LL',
-    monthYearA11yLabel: 'YYYY'
-  }
-};
-
 @Component({
   selector: 'app-match-panel',
   templateUrl: './match-panel.component.html',
   styleUrls: ['./match-panel.component.scss'],
   providers: [
-    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
-    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS }
+    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+    {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
   ]
 })
 export class MatchPanelComponent implements OnInit, OnDestroy, AfterViewInit {
@@ -84,11 +72,6 @@ export class MatchPanelComponent implements OnInit, OnDestroy, AfterViewInit {
       this.filteredPlayers = data ? this.filterPlayers(this.players, data) : this.players.slice();
     });
 
-    this.matchDay.valueChanges.subscribe(value => {
-
-      const date = new Date(value);
-      console.log(date.toLocaleDateString());
-    })
   }
 
 
@@ -208,7 +191,7 @@ export class MatchPanelComponent implements OnInit, OnDestroy, AfterViewInit {
     this.match.teamName = this.teamName.value;
     this.match.isFinish = false;
     this.match.isAway = this.isAway.value;
-    this.match.matchDate = new Date(this.matchDay.value).toLocaleTimeString();
+    this.match.matchDate = moment(this.matchDay.value).toISOString();
     this.match.staffPeople = this.prepareStaffPersons();
   }
 

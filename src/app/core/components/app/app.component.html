@@ -1,13 +1,13 @@
-<app-menu (actionEmitter)="selectAction($event)" class="menu" style="height: 10vh"></app-menu>
-<div *ngIf="isAuthenticated; else login">
-  <div class="container body" >
-    <div class="text-center"  style="max-height: 76vh">
+<app-menu *ngIf="isAuthenticated"></app-menu>
+<!--<div *ngIf="isAuthenticated; else login">-->
+  <div class="container float-none p-5">
+<!--    <div class="text-center"  style="max-height: 76vh">-->
         <router-outlet></router-outlet>
-    </div>
+<!--    </div>-->
   </div>
-  <app-footer class="foot" ></app-footer>
-</div>
-<ng-template #login>
-  <app-login-page *ngIf="selectedAction === 'login'"></app-login-page>
-  <app-register-page *ngIf="selectedAction === 'register'"></app-register-page>
-</ng-template>
+<!--  <app-footer class="foot" ></app-footer>-->
+<!--</div>-->
+<!--<ng-template #login>-->
+<!--  <app-login-page *ngIf="selectedAction === 'login'"></app-login-page>-->
+<!--  <app-register-page *ngIf="selectedAction === 'register'"></app-register-page>-->
+<!--</ng-template>-->

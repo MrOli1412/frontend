@@ -1,4 +1,31 @@
-<nav class="navbar navbar-dark navbar-expand-md bg-dark " style="height: 10vh">
+<!--<nav class="navbar navbar-dark navbar-expand-md bg-dark " style="height: 10vh">-->
+<!--    <a class="navbar-brand float-left" [routerLink]="'/'"> Club name</a>-->
+<!--    <button class="navbar-toggler" data-target="#logcol" data-toggle="collapse">-->
+<!--      <span class="sr-only">Toggle navigation</span>-->
+<!--    </button>-->
+<!--    <div id="loginCol" class="collapse navbar-collapse float-right ml-auto">-->
+<!--      <ul class="nav navbar-nav float-right ml-auto" *ngIf="!isActive; else login">-->
+<!--        <li class="nav-item" role="presentation">-->
+<!--          <span class="nav-link" (click)="callAction('register')">Register</span>-->
+<!--        </li>-->
+<!--        <li class="nav-item" role="presentation">-->
+<!--          <span class="nav-link" (click)="callAction('login')">Login</span>-->
+<!--        </li>-->
+<!--      </ul>-->
+<!--    </div>-->
+<!--  <ng-template #login>-->
+<!--    <ul class="nav navbar-nav float-right ml-auto">-->
+<!--      <li class="nav-item" role="presentation">-->
+<!--        <span class="nav-link" (click)="logout()">Logout</span>-->
+<!--      </li>-->
+<!--    </ul>-->
+<!--  </ng-template>-->
+
+<!--</nav>-->
+
+
+<div class="container-fluid">
+  <nav class="navbar navbar-dark navbar-expand-md sticky-top bg-dark">
     <a class="navbar-brand float-left" [routerLink]="'/'"> Club name</a>
     <button class="navbar-toggler" data-target="#logcol" data-toggle="collapse">
       <span class="sr-only">Toggle navigation</span>
@@ -13,12 +40,12 @@
         </li>
       </ul>
     </div>
-  <ng-template #login>
-    <ul class="nav navbar-nav float-right ml-auto">
-      <li class="nav-item" role="presentation">
-        <span class="nav-link" (click)="logout()">Logout</span>
-      </li>
-    </ul>
-  </ng-template>
-
-</nav>
+    <ng-template #login>
+      <ul class="nav navbar-nav float-right ml-auto">
+        <li class="nav-item" role="presentation">
+          <span class="nav-link" (click)="logout()">Logout</span>
+        </li>
+      </ul>
+    </ng-template>
+  </nav>
+</div>

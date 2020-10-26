@@ -1,21 +1,69 @@
-<mat-card>
-  <form class="form" [formGroup]="loginFormGroup" (ngSubmit)="confirm()">
-    <mat-form-field style="width: 100%" appearance="outline">
-      <mat-label>Login lub email</mat-label>
-      <input matInput placeholder="Login lub email" formControlName="login">
-      <mat-error *ngIf="login.hasError('required')">Login jest wymagany</mat-error>
+<!--<mat-card>-->
+<!--  <form class="form" [formGroup]="loginFormGroup" (ngSubmit)="confirm()">-->
+<!--    <mat-form-field appearance="outline">-->
+<!--      <mat-label>Login lub email</mat-label>-->
+<!--      <input matInput placeholder="Login lub email" formControlName="login">-->
+<!--      <mat-error *ngIf="login.hasError('required')">Login jest wymagany</mat-error>-->
 
-    </mat-form-field>
-      <mat-form-field appearance="outline">
-        <mat-label>Hasło</mat-label>
-        <input [type]="hide ? 'password' : 'text'" matInput autocomplete="password" (change)="clearError()" placeholder="Hasło" formControlName="password">
-        <button mat-icon-button matSuffix  type="button" (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-        </button>
-        <mat-error *ngIf="password.hasError('required')">Hasło jest wymagane</mat-error>
-      </mat-form-field>
-    <div class="action-buttons">
-      <button mat-raised-button color="primary" type="submit">Zaloguj</button>
+<!--    </mat-form-field>-->
+<!--      <mat-form-field appearance="outline">-->
+<!--        <mat-label>Hasło</mat-label>-->
+<!--        <input [type]="hide ? 'password' : 'text'" matInput autocomplete="password" (change)="clearError()" placeholder="Hasło" formControlName="password">-->
+<!--        <button mat-icon-button matSuffix  type="button" (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">-->
+<!--          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>-->
+<!--        </button>-->
+<!--        <mat-error *ngIf="password.hasError('required')">Hasło jest wymagane</mat-error>-->
+<!--      </mat-form-field>-->
+<!--    <div class="action-buttons">-->
+<!--      <button mat-raised-button color="primary" type="submit">Zaloguj</button>-->
+<!--    </div>-->
+<!--  </form>-->
+<!--</mat-card>-->
+
+<div class="container float-none p-5">
+  <div class="card">
+    <div class="card-header">
+      <h3 class="display-4 text-center">Logowanie</h3>
     </div>
-  </form>
-</mat-card>
+    <div class="card-body">
+      <form class="text-center" id="loginForm" [formGroup]="loginFormGroup" (ngSubmit)="confirm()">
+        <div class="form-row p-2">
+          <div class="col-md-4 offset-md-4">
+            <mat-form-field appearance="outline">
+              <mat-label>Login lub email</mat-label>
+              <input matInput placeholder="Login lub email" formControlName="login" required>
+              <mat-error *ngIf="login.hasError('required')">Login jest wymagany</mat-error>
+
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="form-row p-2">
+          <div class="col-md-4 offset-md-4">
+            <mat-form-field appearance="outline">
+              <mat-label>Hasło</mat-label>
+              <input [type]="hide ? 'password' : 'text'" matInput autocomplete="password" (change)="clearError()"
+                     placeholder="Hasło" formControlName="password" required>
+              <button mat-icon-button matSuffix type="button" (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                      [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
+              <mat-error *ngIf="password.hasError('required')">Hasło jest wymagane</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="form-row p-2">
+          <div class="col-md-4 offset-md-4" title="Title">
+            <button class="btn btn-primary ml-2" data-toggle="tooltip" data-bs-tooltip="" type="submit">Zaloguj</button>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col-md-4 offset-md-4" title="Title">
+            <span class="text-center">Jeśli nie posiadasz konta <a routerLink="/register">Zarejestruj się</a></span>
+          </div>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+
