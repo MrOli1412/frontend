@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  // url:'http://localhost:8080/api/'
   url:'http://192.168.56.101:8080/FootballBackend/api/'
+
 
 
 };

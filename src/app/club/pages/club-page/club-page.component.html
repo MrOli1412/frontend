@@ -1,44 +1,78 @@
-<ng-container *ngIf="club" >
-  <h2 class="text-center">{{club.clubName}}</h2>
-  <div class="row ml-0 mr-0  ">
-    <div class="col-md-3  d-flex">
-      <div class="card teams-card new-team-card " (click)="addTeam(null)" >
-        <div class="card-body ">
-          <h1 class="card-title">Dodaj drużynę</h1>
-          <div class="row d-inline-flex ">
-            <div class="col-md-2  card-link p-0  ">
-              <fa-icon [icon]="plusIcon" size="2x" class=""></fa-icon>
+<!--<ng-container *ngIf="club" >-->
+<!--  <h2 class="text-center">{{club.clubName}}</h2>-->
+<!--  <div class="row ml-0 mr-0  ">-->
+<!--    <div class="col-md-3  d-flex">-->
+<!--      <div class="card teams-card new-team-card " (click)="addTeam(null)" >-->
+<!--        <div class="card-body ">-->
+<!--          <h1 class="card-title">Dodaj drużynę</h1>-->
+<!--          <div class="row d-inline-flex ">-->
+<!--            <div class="col-md-2  card-link p-0  ">-->
+<!--              <fa-icon [icon]="plusIcon" size="2x" class=""></fa-icon>-->
 
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="col-md-3 d-flex"  *ngFor="let team of club.teams">-->
+<!--        <div class="card teams-card  ">-->
+<!--          <div class="card-body ">-->
+<!--            <h1 class="card-title">{{team.teamName}}</h1>-->
+<!--            <div class="row d-inline-flex pt-2">-->
+<!--              <div class="col-md-2 mx-auto card-link  p-0" [routerLink]="['../players/'+team.id]">-->
+<!--                <fa-icon [icon]="groupIcon" size="2x" class=""></fa-icon>-->
+<!--                <span class="badge  badge-margin">32</span>-->
+<!--              </div>-->
+<!--              <div class="col-md-2 mx-auto card-link p-0" [routerLink]="['../matches/'+team.id]">-->
+<!--                <fa-icon [icon]="footballIcon" size="2x" class=""></fa-icon>-->
+<!--                <span class="badge  badge-margin">32</span>-->
+
+<!--              </div>-->
+<!--              <div class="col-md-2 mx-auto card-link p-0 " [routerLink]="['../dresses/'+team.id]">-->
+<!--                <fa-icon [icon]="tShirtIcon" size="2x" class=""></fa-icon>-->
+<!--                <span class="badge  badge-margin">32</span>-->
+<!--              </div>-->
+<!--              <div class="col-md-2 mx-auto card-link p-0" [routerLink]="['../staff/'+team.id]">-->
+<!--                <fa-icon [icon]="userIcon" size="2x" class=""></fa-icon>-->
+<!--                <span class="badge  badge-margin">32</span>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</ng-container>-->
+
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h1 class="display-4 text-center"><strong><em>{{club.clubName}}</em></strong></h1>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row m-2">
+    <div class="col"><button class="btn btn-info" type="button" (click)="addTeam(null)">Dodaj drużynę</button></div>
+  </div>
+  <div class="row m-2">
+    <div class="col">
+      <div role="tablist" id="accordion-1" *ngFor="let team of club.teams; let i = index ">
+        <div class="card">
+          <div class="card-header" role="tab">
+            <h5 class="mb-0"><a data-toggle="collapse" aria-expanded="false" attr.aria-controls="accordion-1 .item-{{i}}" href="#accordion-1 .item-{{i}}">{{team.teamName}}</a></h5>
+          </div>
+          <div class="collapse hide item-{{i}}" role="tabpanel" data-parent="#accordion-1">
+            <div class="card-body">
+              <div class="row   row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-4 row-cols-xl-4 text-center">
+                <div class="col team-subside"><button class="btn btn-secondary btn-block" type="button" [routerLink]="['../players/'+team.id]">Zawodnicy</button></div>
+                <div class="col team-subside"><button class="btn btn-secondary btn-block" type="button" [routerLink]="['../matches/'+team.id]">Mecze</button></div>
+                <div class="col team-subside"><button class="btn btn-secondary btn-block" type="button" [routerLink]="['../dresses/'+team.id]">Koszulki</button></div>
+                <div class="col team-subside"><button class="btn btn-secondary btn-block" type="button" [routerLink]="['../staff/'+team.id]">Osoby funkcyjne</button></div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="col-md-3 d-flex"  *ngFor="let team of club.teams">
-        <div class="card teams-card  ">
-          <div class="card-body ">
-            <h1 class="card-title">{{team.teamName}}</h1>
-            <div class="row d-inline-flex pt-2">
-              <div class="col-md-2 mx-auto card-link  p-0" [routerLink]="['../players/'+team.id]">
-                <fa-icon [icon]="groupIcon" size="2x" class=""></fa-icon>
-                <span class="badge  badge-margin">32</span>
-              </div>
-              <div class="col-md-2 mx-auto card-link p-0" [routerLink]="['../matches/'+team.id]">
-                <fa-icon [icon]="footballIcon" size="2x" class=""></fa-icon>
-                <span class="badge  badge-margin">32</span>
-
-              </div>
-              <div class="col-md-2 mx-auto card-link p-0 " [routerLink]="['../dresses/'+team.id]">
-                <fa-icon [icon]="tShirtIcon" size="2x" class=""></fa-icon>
-                <span class="badge  badge-margin">32</span>
-              </div>
-              <div class="col-md-2 mx-auto card-link p-0" [routerLink]="['../staff/'+team.id]">
-                <fa-icon [icon]="userIcon" size="2x" class=""></fa-icon>
-                <span class="badge  badge-margin">32</span>
-              </div>
-            </div>
-          </div>
-        </div>
-    </div>
   </div>
-</ng-container>
+</div>

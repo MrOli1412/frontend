@@ -1,16 +1,41 @@
-<h4 mat-dialog-title>Stwórz drużynę</h4>
-<div mat-card-content>
-  <form class="form" [formGroup]="teamForm" >
-    <mat-form-field class="col-md-12" appearance="outline">
-      <mat-label>Nazwa drużyny</mat-label>
-      <input matInput placeholder="Nazwa drużyny" formControlName="teamName">
-      <mat-error *ngIf="teamName.hasError('required')">Nazwa drużyny jest wymagana</mat-error>
-    </mat-form-field>
-  </form>
-  <div  class="action-buttons">
-      <button mat-raised-button (click)="reset()" type="button" class="float-left">Zamknij</button>
-      <button mat-raised-button (click)="register()" color="primary" type="submit" class="float-right">Stwórz</button>
-    </div>
-</div>
+<!--<h4 mat-dialog-title>Stwórz drużynę</h4>-->
+<!--<div mat-card-content>-->
+<!--  <form class="form" [formGroup]="teamForm">-->
+<!--    <mat-form-field class="col-md-12" appearance="outline">-->
+<!--      <mat-label>Nazwa drużyny</mat-label>-->
+<!--      <input matInput placeholder="Nazwa drużyny" formControlName="teamName">-->
+<!--      <mat-error *ngIf="teamName.hasError('required')">Nazwa drużyny jest wymagana</mat-error>-->
+<!--    </mat-form-field>-->
+<!--  </form>-->
+<!--  <div class="action-buttons">-->
+<!--    <button mat-raised-button (click)="reset()" type="button" class="float-left">Zamknij</button>-->
+<!--    <button mat-raised-button (click)="register()" color="primary" type="submit" class="float-right">Stwórz</button>-->
+<!--  </div>-->
+<!--</div>-->
+
+
+  <div class="modal-header text-center">
+    <h4 class="modal-title"> Dodaj dyużynę</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="false">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body" ngbAutofocus>
+    <form class="text-center" id="loginForm" [formGroup]="teamForm" (ngSubmit)="register()">
+      <div class="form-row p-2">
+        <div class="col-md-12">
+          <mat-form-field appearance="outline" >
+            <mat-label>Nazwa Drużyny</mat-label>
+            <input   matInput placeholder="Nazwa drużyny" formControlName="teamName" required>
+            <mat-error *ngIf="teamName.hasError('required')">Nazwa drużyny jest wymagana</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button mat-raised-button (click)="register()" [disabled]="!teamForm.valid" color="primary" type="submit" class="float-right">Stwórz</button>
+  </div>
+
 
 

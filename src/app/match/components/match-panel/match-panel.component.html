@@ -144,7 +144,7 @@
                  placeholder="Wybierz trenera"
                  matInput
                  formControlName="coach"
-                 [matAutocomplete]="autoCoach" required>
+                 [matAutocomplete]="autoCoach">
           <mat-autocomplete #autoCoach="matAutocomplete" [displayWith]="getName">
             <mat-option [value]="null">-</mat-option>
             <mat-option *ngFor="let person of staffPeople"
@@ -185,7 +185,7 @@
                  placeholder="Wybierz opiekę medyczną"
                  matInput
                  formControlName="medicalCarer"
-                 [matAutocomplete]="autoMedicalCarer" [required]="isAway.value">
+                 [matAutocomplete]="autoMedicalCarer" >
           <mat-autocomplete #autoMedicalCarer="matAutocomplete" [displayWith]="getName">
             <mat-option [value]="null">-</mat-option>
             <mat-option *ngFor="let person of staffPeople"

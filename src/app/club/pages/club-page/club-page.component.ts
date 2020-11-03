@@ -10,6 +10,7 @@ import {Team} from "../../../shared/models/team";
 import {TeamService} from "../../../team/services/team.service";
 import {TeamPanelComponent} from "../../../team/components/team-panel/team-panel.component";
 import {ToastrService} from "ngx-toastr";
+import {ModalDismissReasons, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-club-page',
@@ -23,12 +24,13 @@ export class ClubPageComponent implements OnInit {
   tShirtIcon = faTshirt;
   plusIcon = faPlus;
   club: Club;
+  private closeResult: string;
 
   constructor(private clubService: ClubService,
               private teamService: TeamService,
               private router: Router,
-              private toaster:ToastrService,
-              public dialog: MatDialog) {
+              private toaster: ToastrService,
+              private modalService: NgbModal) {
 
   }
 
@@ -48,14 +50,30 @@ export class ClubPageComponent implements OnInit {
   }
 
   addTeam(team: Team = null) {
-    const dialogRef = this.dialog.open(TeamPanelComponent, {
-      data: team
+    this.modalService.open(TeamPanelComponent, {ariaLabelledBy: 'modal-basic-title', centered: true}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+      this.toaster.success('Drużyna została stworzona','Sukces')
+          this.loadClub();
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.toaster.success('Drużyna została stworzona','Sukces')
-        this.loadClub();
-      }
-    })
+    // const dialogRef = this.dialog.open(TeamPanelComponent, {
+    //   data: team
+    // });
+    // dialogRef.afterClosed().subscribe(result => {
+    //   if (result) {
+    //     this.toaster.success('Drużyna została stworzona','Sukces')
+    //     this.loadClub();
+    //   }
+    // })
+  }
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
   }
 }

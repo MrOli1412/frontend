@@ -23,6 +23,7 @@ import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from "@angular/material/form-field";
 import {GlobalHttpInterceptorService} from "../shared/interceptors/GlobalHttpInterceptorService";
 import {GlobalErrorHandlerService} from "../shared/interceptors/global-error-handler.service";
 import {ToastrModule} from "ngx-toastr";
+import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 
 
 @NgModule({
@@ -36,6 +37,7 @@ import {ToastrModule} from "ngx-toastr";
     ReactiveFormsModule,
     BrowserModule,
     BrowserAnimationsModule,
+    NgbModule,
     JwtModule,
     ToastrModule.forRoot()
 

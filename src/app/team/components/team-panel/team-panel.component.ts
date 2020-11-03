@@ -6,6 +6,7 @@ import {Team} from "../../../shared/models/team";
 import {TeamService} from "../../services/team.service";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {ToastrService} from "ngx-toastr";
+import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-team-panel',
@@ -19,8 +20,8 @@ export class TeamPanelComponent implements OnInit {
   constructor(private fb: FormBuilder,
               private teamService: TeamService,
               private toaster:ToastrService,
-              public dialogRef: MatDialogRef<TeamPanelComponent>,
-              @Inject(MAT_DIALOG_DATA) public data) {
+              public activeModal: NgbActiveModal
+             ) {
   }
 
   ngOnInit() {
@@ -39,7 +40,8 @@ export class TeamPanelComponent implements OnInit {
       teamName: this.teamName.value
     };
     this.teamService.createTeam(this.team).subscribe(data => {
-      this.dialogRef.close(data);
+      this.activeModal.close(data)
+      // this.dialogRef.close(data);
     }, error => {
       this.toaster.error("Błąd podczas tworzenia drużyny","Błąd");
     });
@@ -47,6 +49,6 @@ export class TeamPanelComponent implements OnInit {
 
 
   reset() {
-    this.dialogRef.close();
+    this.activeModal.dismiss();
   }
 }
