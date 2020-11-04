@@ -120,7 +120,7 @@ export class PlayerPanelComponent implements OnInit {
       console.log(error);
     })
   }
-
+//TODO Naprawić ostatni input oraz sprawdzić czy można rozszerzyć Modala
   reset() {
 
   }
