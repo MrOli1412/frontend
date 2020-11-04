@@ -14,6 +14,7 @@ import {ActivatedRoute, Route} from "@angular/router";
 import {PlayerService} from "../../services/player.service";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {error} from "util";
+import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 
 // tslint:disable-next-line:no-duplicate-imports
 
@@ -31,17 +32,16 @@ export class PlayerPanelComponent implements OnInit {
   optionalData: FormGroup;
   keys: any[] = [];
   playerData: Player;
-  private teamId;
+  @Input() teamId: string;
+
 
   constructor(private fb: FormBuilder,
               private playerService: PlayerService,
-              public dialogRef: MatDialogRef<PlayerPanelComponent>,
-              @Inject(MAT_DIALOG_DATA) public data) {
+              public activeModal: NgbActiveModal) {
 
   }
 
   ngOnInit() {
-    this.teamId = this.data.teamId;
     this.createFormControls();
     Object.keys(TransferType).forEach(key => {
       this.keys.push(
@@ -109,14 +109,13 @@ export class PlayerPanelComponent implements OnInit {
 
 
   submit() {
-    console.log(this.optionalData);
     this.playerData = Object.assign({}, this.requiredData.getRawValue(), this.optionalData.getRawValue());
     this.playerData.birthDay = _moment(this.playerData.birthDay).format('YYYY-MM-DD');
     this.playerData.contractDate = _moment(this.playerData.contractDate).format('YYYY-MM-DD');
 
     this.playerService.savePlayer(this.teamId, this.playerData).subscribe(data => {
       console.log(data);
-      this.dialogRef.close(true);
+      this.activeModal.close(data)
     }, error => {
       console.log(error);
     })

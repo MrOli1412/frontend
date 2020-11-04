@@ -1,65 +1,176 @@
-<h4 mat-dialog-title>Formularz</h4>
-<div mat-dialog-content>
-  <mat-horizontal-stepper [linear]="false">
-    <mat-step [stepControl]="requiredData">
-      <form [formGroup]="requiredData" class="pt-2">
-        <ng-template matStepLabel>Dane podstawowe zawodnika</ng-template>
-        <mat-form-field class="col-md-4">
-          <mat-label>Imię</mat-label>
-          <input matInput placeholder="Imię" formControlName="firstName" required>
-        </mat-form-field>
-        <mat-form-field class="col-md-4">
-          <mat-label>Nazwisko</mat-label>
-          <input matInput placeholder="Nazwisko" formControlName="lastName" required>
-        </mat-form-field>
-        <mat-form-field class="col-md-4">
-          <mat-label>Numer licencji</mat-label>
-          <input matInput placeholder="Numer licencji" formControlName="evidentialNumber" required>
-        </mat-form-field>
-        <mat-form-field class="col-md-6">
-          <mat-label>Data urodzenia</mat-label>
-          <input matInput [matDatepicker]="birthDayPicker" placeholder="Data urodzin" formControlName="birthDay"
-                 required>
-          <mat-datepicker-toggle matSuffix [for]="birthDayPicker"></mat-datepicker-toggle>
-          <mat-datepicker #birthDayPicker></mat-datepicker>
-        </mat-form-field>
-        <mat-form-field class="col-md-6">
-          <mat-label>Data uprawnienia do gry</mat-label>
-          <input matInput [matDatepicker]="contractDatePicker" placeholder="Data uprawnienia"
-                 formControlName="contractDate" required>
-          <mat-datepicker-toggle matSuffix [for]="contractDatePicker"></mat-datepicker-toggle>
-          <mat-datepicker #contractDatePicker></mat-datepicker>
-        </mat-form-field>
-        <div class="pt-2">
-          <button mat-button matStepperNext class="float-right">Dalej</button>
-        </div>
-      </form>
-    </mat-step>
-    <mat-step [stepControl]="optionalData">
-      <form [formGroup]="optionalData">
-        <ng-template matStepLabel>Dane dodatkowe</ng-template>
-        <mat-form-field class="col-md-6">
-          <input matInput placeholder="Amator" formControlName="amateur">
-        </mat-form-field>
-        <mat-form-field class="col-md-6">
-          <input matInput placeholder="Ostatni klub" formControlName="lastClub">
-        </mat-form-field>
-        <mat-form-field class="col-md-6">
-          <mat-label>Typ transferu</mat-label>
-          <mat-select formControlName="transferType">
-            <mat-option *ngFor="let transfer of keys" [value]="transfer.value">
-              {{transfer.key}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-        <mat-form-field class="col-md-6">
-          <input matInput placeholder="Domyślny nr koszulki" formControlName="dressNumber">
-        </mat-form-field>
-        <div class="pt-2">
-          <button mat-button matStepperPrevious class="float-left">Wstecz</button>
-          <button mat-button matStepperNext class="float-right" color="primary" (click)="submit()">Zapisz</button>
-        </div>
-      </form>
-    </mat-step>
-  </mat-horizontal-stepper>
+<!--<h4 mat-dialog-title>Formularz</h4>-->
+<!--<div mat-dialog-content>-->
+<!--  <mat-horizontal-stepper [linear]="false">-->
+<!--    <mat-step [stepControl]="requiredData">-->
+<!--      <form [formGroup]="requiredData" class="pt-2">-->
+<!--        <ng-template matStepLabel>Dane podstawowe zawodnika</ng-template>-->
+<!--        <mat-form-field class="col-md-4">-->
+<!--          <mat-label>Imię</mat-label>-->
+<!--          <input matInput placeholder="Imię" formControlName="firstName" required>-->
+<!--        </mat-form-field>-->
+<!--        <mat-form-field class="col-md-4">-->
+<!--          <mat-label>Nazwisko</mat-label>-->
+<!--          <input matInput placeholder="Nazwisko" formControlName="lastName" required>-->
+<!--        </mat-form-field>-->
+<!--        <mat-form-field class="col-md-4">-->
+<!--          <mat-label>Numer licencji</mat-label>-->
+<!--          <input matInput placeholder="Numer licencji" formControlName="evidentialNumber" required>-->
+<!--        </mat-form-field>-->
+<!--        <mat-form-field class="col-md-6">-->
+<!--          <mat-label>Data urodzenia</mat-label>-->
+<!--          <input matInput [matDatepicker]="birthDayPicker" placeholder="Data urodzin" formControlName="birthDay"-->
+<!--                 required>-->
+<!--          <mat-datepicker-toggle matSuffix [for]="birthDayPicker"></mat-datepicker-toggle>-->
+<!--          <mat-datepicker #birthDayPicker></mat-datepicker>-->
+<!--        </mat-form-field>-->
+<!--        <mat-form-field class="col-md-6">-->
+<!--          <mat-label>Data uprawnienia do gry</mat-label>-->
+<!--          <input matInput [matDatepicker]="contractDatePicker" placeholder="Data uprawnienia"-->
+<!--                 formControlName="contractDate" required>-->
+<!--          <mat-datepicker-toggle matSuffix [for]="contractDatePicker"></mat-datepicker-toggle>-->
+<!--          <mat-datepicker #contractDatePicker></mat-datepicker>-->
+<!--        </mat-form-field>-->
+<!--        <div class="pt-2">-->
+<!--          <button mat-button matStepperNext class="float-right">Dalej</button>-->
+<!--        </div>-->
+<!--      </form>-->
+<!--    </mat-step>-->
+<!--    <mat-step [stepControl]="optionalData">-->
+<!--      <form [formGroup]="optionalData">-->
+<!--        <ng-template matStepLabel>Dane dodatkowe</ng-template>-->
+<!--        <mat-form-field class="col-md-6">-->
+<!--          <input matInput placeholder="Amator" formControlName="amateur">-->
+<!--        </mat-form-field>-->
+<!--        <mat-form-field class="col-md-6">-->
+<!--          <input matInput placeholder="Ostatni klub" formControlName="lastClub">-->
+<!--        </mat-form-field>-->
+<!--        <mat-form-field class="col-md-6">-->
+<!--          <mat-label>Typ transferu</mat-label>-->
+<!--          <mat-select formControlName="transferType">-->
+<!--            <mat-option *ngFor="let transfer of keys" [value]="transfer.value">-->
+<!--              {{transfer.key}}-->
+<!--            </mat-option>-->
+<!--          </mat-select>-->
+<!--        </mat-form-field>-->
+<!--        <mat-form-field class="col-md-6">-->
+<!--          <input matInput placeholder="Domyślny nr koszulki" formControlName="dressNumber">-->
+<!--        </mat-form-field>-->
+<!--        <div class="pt-2">-->
+<!--          <button mat-button matStepperPrevious class="float-left">Wstecz</button>-->
+<!--          <button mat-button matStepperNext class="float-right" color="primary" (click)="submit()">Zapisz</button>-->
+<!--        </div>-->
+<!--      </form>-->
+<!--    </mat-step>-->
+<!--  </mat-horizontal-stepper>-->
+<!--</div>-->
+
+
+<div class="modal-header text-center">
+  <h4 class="modal-title"> Importuj zawodników</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss()">
+    <span aria-hidden="false">&times;</span>
+  </button>
 </div>
+<mat-horizontal-stepper [linear]="true" #stepper>
+  <mat-step [stepControl]="requiredData">
+    <ng-template matStepLabel>Plik z zawodnikami</ng-template>
+    <div class="modal-body" ngbAutofocus>
+      <div class="container">
+        <form [formGroup]="requiredData">
+          <div class="form-row p-2">
+            <div class="col">
+              <mat-form-field>
+                <mat-label>Imię</mat-label>
+                <input matInput placeholder="Imię" formControlName="firstName" required>
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field>
+                <mat-label>Nazwisko</mat-label>
+                <input matInput placeholder="Nazwisko" formControlName="lastName" required>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="form-row p2">
+            <div class="col">
+              <mat-form-field>
+                <mat-label>Data uprawnienia do gry</mat-label>
+                <input matInput [matDatepicker]="contractDatePicker" placeholder="Data uprawnienia"
+                       formControlName="contractDate" required>
+                <mat-datepicker-toggle matSuffix [for]="contractDatePicker"></mat-datepicker-toggle>
+                <mat-datepicker #contractDatePicker id="dataPicker"></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field>
+                <mat-label>Data urodzenia</mat-label>
+                <input matInput [matDatepicker]="birthDayPicker" placeholder="Data urodzin" formControlName="birthDay"
+                       required>
+                <mat-datepicker-toggle matSuffix [for]="birthDayPicker"></mat-datepicker-toggle>
+                <mat-datepicker #birthDayPicker></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="form-row p-2">
+            <div class="col">
+              <mat-form-field>
+                <mat-label>Numer licencji</mat-label>
+                <input matInput placeholder="Numer licencji" formControlName="evidentialNumber" required>
+              </mat-form-field>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button mat-raised-button [disabled]="!requiredData.valid" matStepperNext color="primary" type="button"
+              class="float-right">Dalej
+      </button>
+    </div>
+  </mat-step>
+  <mat-step [stepControl]="optionalData">
+    <ng-template matStepLabel>Dane dodatkowe</ng-template>
+    <form [formGroup]="optionalData">
+      <div class="modal-body" ngbAutofocus>
+        <div class="container">
+
+          <div class="form-row p-2">
+            <div class="col">
+              <mat-form-field>
+                <input matInput placeholder="Amator" formControlName="amateur">
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field>
+                <input matInput placeholder="Ostatni klub" formControlName="lastClub">
+              </mat-form-field>
+            </div>
+            <div class="form-row p-2">
+              <div class="col">
+                <mat-form-field>
+                  <mat-label>Typ transferu</mat-label>
+                  <mat-select formControlName="transferType">
+                    <mat-option *ngFor="let transfer of keys" [value]="transfer.value">
+                      {{transfer.key}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="col">
+                <mat-form-field>
+                  <input matInput placeholder="Domyślny nr koszulki" formControlName="dressNumber">
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button mat-raised-button (click)="submit()" color="primary"
+                  type="submit"
+                  class="float-right">Zapisz zawodnika
+          </button>
+        </div>
+      </div>
+    </form>
+  </mat-step>
+</mat-horizontal-stepper>

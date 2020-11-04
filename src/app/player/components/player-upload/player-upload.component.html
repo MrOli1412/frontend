@@ -1,21 +1,86 @@
-<h4 mat-dialog-title>Formularz</h4>
-<div mat-dialog-content>
-  <mat-vertical-stepper [linear]="true" #stepper>
-    <mat-step [stepControl]="fileUpload">
-      <ng-template matStepLabel>Plik z zawodnikami</ng-template>
-      <input type="file" name="avatar" (change)="onFileChange($event)"/>
-      <div>
-        <button mat-button (click)="onSubmit()">Convert</button>
-      </div>
-    </mat-step>
-    <mat-step>
-      <ng-template matStepLabel>Done</ng-template>
-      Wszystko gotowe, możesz zapisać zawodników
-      {{this.uploadedPlayers ? this.uploadedPlayers.length - 1 : ''}}
-      <div>
-        <button mat-button matStepperPrevious>Wróć</button>
-        <button mat-button (click)="savePlayers()">Zapisz</button>
-      </div>
-    </mat-step>
-  </mat-vertical-stepper>
+<!--<h4 mat-dialog-title>Formularz</h4>-->
+<!--<div mat-dialog-content>-->
+<!--  <mat-vertical-stepper [linear]="true" #stepper>-->
+<!--    <mat-step [stepControl]="fileUpload">-->
+<!--      <ng-template matStepLabel>Plik z zawodnikami</ng-template>-->
+<!--      <form [formGroup]="fileUpload">-->
+<!--        <input type="file" (change)="onFileChange($event)" #fileInput hidden>-->
+<!--        <mat-form-field appearance="outline" (click)="fileInput.click()">-->
+<!--          <mat-label>Wybierz plik</mat-label>-->
+<!--          <input matInput type="text" [value]="file && file.value ?file.value.name : null" formControlName="file"-->
+<!--                 required [readonly]="true"/>-->
+<!--          <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>-->
+<!--          <mat-error *ngIf="file.hasError('required')">Plik jest wymagany, obsługiwany format .pdf</mat-error>-->
+<!--        </mat-form-field>-->
+<!--        <div>-->
+<!--          <button mat-button [disabled]="!file.valid" (click)="onSubmit()">Convert</button>-->
+<!--        </div>-->
+<!--      </form>-->
+<!--    </mat-step>-->
+
+<!--    <mat-step>-->
+<!--      <ng-template matStepLabel>Done</ng-template>-->
+<!--      Wszystko gotowe, możesz zapisać zawodników-->
+<!--      {{this.uploadedPlayers ? this.uploadedPlayers.length - 1 : ''}}-->
+<!--      <div>-->
+<!--        <button mat-button matStepperPrevious>Wróć</button>-->
+<!--        <button mat-button (click)="savePlayers()">Zapisz</button>-->
+<!--      </div>-->
+<!--    </mat-step>-->
+<!--  </mat-vertical-stepper>-->
+<!--</div>-->
+
+<div class="modal-header text-center">
+  <h4 class="modal-title"> Importuj zawodników</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss()">
+    <span aria-hidden="false">&times;</span>
+  </button>
 </div>
+<mat-vertical-stepper [linear]="true" #stepper>
+  <mat-step [stepControl]="fileUpload">
+    <ng-template matStepLabel>Plik z zawodnikami</ng-template>
+    <div class="modal-body" ngbAutofocus>
+      <div class="container">
+        <form [formGroup]="fileUpload" class="text-center" (ngSubmit)="onSubmit()">
+          <div class="form-row p-2">
+            <div class="col-md-12">
+              <input type="file" (change)="onFileChange($event)" #fileInput hidden>
+              <mat-form-field appearance="outline" (click)="fileInput.click()">
+                <mat-label>Wybierz plik</mat-label>
+                <input matInput type="text" [value]="file && file.value ?file.value.name : null" formControlName="file"
+                       required [readonly]="true"/>
+                <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                <mat-error *ngIf="file.hasError('required')">Plik jest wymagany, obsługiwany format .pdf</mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button mat-raised-button [disabled]="!file.valid" (click)="onSubmit()" color="primary" type="submit"
+              class="float-right">Przetwórz plik
+      </button>
+    </div>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Przetworzony plik</ng-template>
+    <div class="modal-body" ngbAutofocus>
+      <div class="container">
+        <div class="form-row p-2">
+          <div class="col-md-12">
+            <span *ngIf="this.uploadedPlayers.length">Można zaimportować {{this.uploadedPlayers.length}}
+              zawodników</span>
+            <span *ngIf="!this.uploadedPlayers.length"> Brak zawodników do zaimporotwania</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button mat-raised-button [disabled]="!this.uploadedPlayers.length" (click)="savePlayers()" color="primary"
+              type="submit"
+              class="float-right">Zapisz zawodników
+      </button>
+    </div>
+  </mat-step>
+</mat-vertical-stepper>

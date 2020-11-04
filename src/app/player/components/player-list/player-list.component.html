@@ -1,25 +1,78 @@
-<div >
-  <mat-form-field class="float-left">
-    <input matInput placeholder="Szukaj" (keyup)="filterPlayers($event.target.value)">
-  </mat-form-field>
-  <button mat-button (click)="addPlayer()" class="float-right">Dodaj zawodnika</button>
-  <button mat-button (click)="importPlayers()" class="float-right">Importuj zawodników</button>
-  <div class="table-responsive table-hover table-wrapper-scroll-y my-custom-scrollbar" *ngIf="filteredPlayers">
-    <table class="table">
-      <thead>
-      <tr>
-        <th style="width: 33.33%">Imie</th>
-        <th style="width: 33.33%">Nazwisko</th>
-        <th style="width: 33.33%">Data urodzenia</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let player of filteredPlayers">
-        <th style="width: 33.33%">{{player.firstName}}</th>
-        <th style="width: 33.33%">{{player.lastName}}</th>
-        <th style="width: 33.33%">{{player.birthDay}}</th>
-      </tr>
-      </tbody>
-    </table>
+<!--<div >-->
+<!--  <mat-form-field class="float-left">-->
+<!--    <input matInput placeholder="Szukaj" (keyup)="filterPlayers($event.target.value)">-->
+<!--  </mat-form-field>-->
+<!--  <button mat-button (click)="addPlayer()" class="float-right">Dodaj zawodnika</button>-->
+<!--  <button mat-button (click)="importPlayers()" class="float-right">Importuj zawodników</button>-->
+<!--  <div class="table-responsive table-hover table-wrapper-scroll-y my-custom-scrollbar" *ngIf="filteredPlayers">-->
+<!--    <table class="table">-->
+<!--      <thead>-->
+<!--      <tr>-->
+<!--        <th style="width: 33.33%">Imie</th>-->
+<!--        <th style="width: 33.33%">Nazwisko</th>-->
+<!--        <th style="width: 33.33%">Data urodzenia</th>-->
+<!--      </tr>-->
+<!--      </thead>-->
+<!--      <tbody>-->
+<!--      <tr *ngFor="let player of filteredPlayers">-->
+<!--        <th style="width: 33.33%">{{player.firstName}}</th>-->
+<!--        <th style="width: 33.33%">{{player.lastName}}</th>-->
+<!--        <th style="width: 33.33%">{{player.birthDay}}</th>-->
+<!--      </tr>-->
+<!--      </tbody>-->
+<!--    </table>-->
+<!--  </div>-->
+<!--</div>-->
+
+
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <mat-form-field>
+        <input matInput placeholder="Szukaj" (keyup)="filterPlayers($event.target.value)">
+      </mat-form-field>
+    </div>
+    <div class="col text-right">
+      <div class="btn-group" role="group">
+        <button class="btn btn-secondary" type="button" style="margin-right: 5px;" (click)="addPlayer()">Dodaj
+          zawodnika
+        </button>
+        <button class="btn btn-secondary" type="button" (click)="importPlayers()">Importuj zawodników</button>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col text-center" *ngIf="filteredPlayers && filteredPlayers.length;else noData ">
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+          <tr>
+            <th>Lp</th>
+            <th>Imie</th>
+            <th>Nazwisko</th>
+            <th>Data urodzenia</th>
+            <th>Nr koszulki</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let player of filteredPlayers; let i = index">
+            <td>{{i+1}}</td>
+            <td>{{player.firstName}}</td>
+            <td>{{player.lastName}}</td>
+            <td>{{player.evidentialNumber}}</td>
+            <td>TO DO (NR KOSZULKI)</td>
+          </tr>
+          </tbody>
+        </table>
+
+      </div>
+
+    </div>
+    <ng-template #noData>
+      <div class="col text-center">
+        <h4>Brak danych</h4>
+      </div>
+    </ng-template>
   </div>
 </div>
+

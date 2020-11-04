@@ -8,6 +8,7 @@ import {PlayerUploadComponent} from "../player-upload/player-upload.component";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatTableDataSource} from "@angular/material/table";
 import {ToastrService} from "ngx-toastr";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-player-list',
@@ -16,12 +17,12 @@ import {ToastrService} from "ngx-toastr";
 })
 export class PlayerListComponent implements OnInit {
   players: PlayerShortInfo[] = [];
-  filteredPlayers;
+  filteredPlayers: PlayerShortInfo[];
 
   constructor(private playerService: PlayerService,
               private route: ActivatedRoute,
               private toaster: ToastrService,
-              public dialog: MatDialog) {
+              private modalService: NgbModal) {
 
   }
 
@@ -46,26 +47,28 @@ export class PlayerListComponent implements OnInit {
   }
 
   addPlayer() {
-    const dialogRef = this.dialog.open(PlayerPanelComponent, {
-      data: {teamId: this.getTeamId}
-    });
-    dialogRef.afterClosed().subscribe(result => {
+    const modelRef = this.modalService.open(PlayerPanelComponent, {centered: true});
+    modelRef.componentInstance.teamId = this.getTeamId;
+    modelRef.result.then((result) => {
+      console.log(result);
       if (result) {
-        this.playerService.getPlayerFromTeam(this.getTeamId);
+        this.getPlayers();
       }
-    })
-  }
+    }).catch((reason) => {
+    });
+  };
 
   importPlayers() {
-    const dialogRef = this.dialog.open(PlayerUploadComponent, {
-      data: {teamId: this.getTeamId}
-    });
-    dialogRef.afterClosed().subscribe(result => {
+    const modelRef = this.modalService.open(PlayerUploadComponent, {centered: true});
+    modelRef.componentInstance.teamId = this.getTeamId;
+    modelRef.result.then((result) => {
       if (result) {
         this.toaster.success('Import zawodników zakończony pomyślnie', 'Sukces');
         this.getPlayers();
       }
-    })
+    }).catch((reason => {
+    }));
+
   }
 
 
