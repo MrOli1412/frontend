@@ -1,29 +1,82 @@
-<div >
-  <mat-form-field class="float-left">
-    <input matInput placeholder="Szukaj" (keyup)="filterStaff($event.target.value)">
-  </mat-form-field>
-  <button mat-button (click)="addStaffPerson()" class="float-right">Dodaj osobę funkcyjną</button>
-  <button mat-button (click)="addAdditionalTeam()" class="float-right">Przpyisz do innej drużyny</button>
-  <div class="table-responsive table-hover table-wrapper-scroll-y my-custom-scrollbar" *ngIf="filteredStaff">
-    <table class="table">
-      <thead>
-      <tr>
-        <th style="width: 20%">Imie</th>
-        <th style="width: 20%">Nazwisko</th>
-        <th style="width: 20%">Nr licencji</th>
-        <th style="width: 20%">Nominalna pozycja</th>
-        <th style="width: 20%">Drużyny</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let player of filteredStaff">
-        <th style="width: 20%">{{player.firstName}}</th>
-        <th style="width: 20%">{{player.lastName}}</th>
-        <th style="width: 20%">{{player.licenseNumber}}</th>
-        <th style="width: 20%">{{player.position}}</th>
-        <th style="width: 20%">{{player.teams}}</th>
-      </tr>
-      </tbody>
-    </table>
+<!--<div >-->
+<!--  <mat-form-field class="float-left">-->
+<!--    <input matInput placeholder="Szukaj" (keyup)="filterStaff($event.target.value)">-->
+<!--  </mat-form-field>-->
+<!--  <button mat-button (click)="addStaffPerson()" class="float-right">Dodaj osobę funkcyjną</button>-->
+<!--  <button mat-button (click)="addAdditionalTeam()" class="float-right">Przpyisz do innej drużyny</button>-->
+<!--  <div class="table-responsive table-hover table-wrapper-scroll-y my-custom-scrollbar" *ngIf="filteredStaff">-->
+<!--    <table class="table">-->
+<!--      <thead>-->
+<!--      <tr>-->
+<!--        <th style="width: 20%">Imie</th>-->
+<!--        <th style="width: 20%">Nazwisko</th>-->
+<!--        <th style="width: 20%">Nr licencji</th>-->
+<!--        <th style="width: 20%">Nominalna pozycja</th>-->
+<!--        <th style="width: 20%">Drużyny</th>-->
+<!--      </tr>-->
+<!--      </thead>-->
+<!--      <tbody>-->
+<!--      <tr *ngFor="let player of filteredStaff">-->
+<!--        <th style="width: 20%">{{player.firstName}}</th>-->
+<!--        <th style="width: 20%">{{player.lastName}}</th>-->
+<!--        <th style="width: 20%">{{player.licenseNumber}}</th>-->
+<!--        <th style="width: 20%">{{player.position}}</th>-->
+<!--        <th style="width: 20%">{{player.teams}}</th>-->
+<!--      </tr>-->
+<!--      </tbody>-->
+<!--    </table>-->
+<!--  </div>-->
+<!--</div>-->
+
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <mat-form-field>
+        <input matInput placeholder="Szukaj" (keyup)="filterStaff($event.target.value)">
+      </mat-form-field>
+    </div>
+    <div class="col text-right">
+      <div class="btn-group" role="group">
+        <button class="btn btn-secondary" type="button" style="margin-right: 5px;" (click)="addStaffPerson()">
+          Dodaj osobę funkcyjną
+        </button>
+        <button class="btn btn-secondary" type="button" (click)="addAdditionalTeam()">Przpyisz do innej drużyny</button>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col text-center" *ngIf="filteredStaff && filteredStaff.length;else noData ">
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+          <tr>
+            <th>Lp.</th>
+            <th >Imie</th>
+            <th >Nazwisko</th>
+            <th >Nr licencji</th>
+            <th >Nominalna pozycja</th>
+            <th >Drużyny</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let staff of filteredStaff; let i = index">
+            <th >{{i+1}}</th>
+            <th >{{staff.firstName}}</th>
+            <th >{{staff.lastName}}</th>
+            <th >{{staff.licenseNumber}}</th>
+            <th >{{staff.position}}</th>
+            <th >{{staff.teams}}</th>
+          </tr>
+          </tbody>
+        </table>
+
+      </div>
+
+    </div>
+    <ng-template #noData>
+      <div class="col text-center">
+        <h4>Brak danych</h4>
+      </div>
+    </ng-template>
   </div>
 </div>

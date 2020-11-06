@@ -1,10 +1,11 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {PlayerService} from "../../../player/services/player.service";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {StaffService} from "../../service/staff.service";
 import {TransferType} from "../../../shared/models/transfer-type.enum";
 import {StaffPosition} from "../../../shared/models/staff-position";
+import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-staff-panel',
@@ -14,16 +15,16 @@ import {StaffPosition} from "../../../shared/models/staff-position";
 export class StaffPanelComponent implements OnInit {
   staffForm: FormGroup;
   positions = [];
-  teamId;
+  @Input() teamId: string;
+
 
   constructor(private fb: FormBuilder,
               private staffService: StaffService,
-              public dialogRef: MatDialogRef<StaffPanelComponent>,
-              @Inject(MAT_DIALOG_DATA) public data) {
+              public activeModal: NgbActiveModal
+            ) {
   }
 
   ngOnInit(): void {
-    this.teamId = this.data.teamId;
 
     this.createForm();
     Object.keys(StaffPosition).forEach(key => {
@@ -49,7 +50,7 @@ export class StaffPanelComponent implements OnInit {
 
   submit() {
     this.staffService.saveStaffPerson(this.teamId, this.staffForm.getRawValue()).subscribe((value) => {
-        this.dialogRef.close(value);
+        this.activeModal.close(value);
       }, error => {
 
       }

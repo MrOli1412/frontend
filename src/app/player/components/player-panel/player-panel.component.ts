@@ -1,19 +1,15 @@
-import {Component, Inject, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Player} from "../../../shared/models/player";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {MAT_MOMENT_DATE_FORMATS, MomentDateAdapter} from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
-
 // Depending on whether rollup is used, moment needs to be imported differently.
 // Since Moment.js doesn't have a default export, we normally need to import using the `* as`
 // syntax. However, rollup creates a synthetic default module and we thus need to import it using
 // the `default as` syntax.
 import * as _moment from 'moment';
 import {TransferType} from "../../../shared/models/transfer-type.enum";
-import {ActivatedRoute, Route} from "@angular/router";
 import {PlayerService} from "../../services/player.service";
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {error} from "util";
 import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 
 // tslint:disable-next-line:no-duplicate-imports
@@ -112,15 +108,13 @@ export class PlayerPanelComponent implements OnInit {
     this.playerData = Object.assign({}, this.requiredData.getRawValue(), this.optionalData.getRawValue());
     this.playerData.birthDay = _moment(this.playerData.birthDay).format('YYYY-MM-DD');
     this.playerData.contractDate = _moment(this.playerData.contractDate).format('YYYY-MM-DD');
-
+    console.log(this.playerData);
     this.playerService.savePlayer(this.teamId, this.playerData).subscribe(data => {
-      console.log(data);
       this.activeModal.close(data)
     }, error => {
       console.log(error);
     })
   }
-//TODO Naprawić ostatni input oraz sprawdzić czy można rozszerzyć Modala
   reset() {
 
   }

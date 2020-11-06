@@ -78,7 +78,7 @@
       <div class="container">
         <form [formGroup]="requiredData">
           <div class="form-row p-2">
-            <div class="col">
+            <div class="col ">
               <mat-form-field>
                 <mat-label>Imię</mat-label>
                 <input matInput placeholder="Imię" formControlName="firstName" required>
@@ -91,7 +91,7 @@
               </mat-form-field>
             </div>
           </div>
-          <div class="form-row p2">
+          <div class="form-row p-2">
             <div class="col">
               <mat-form-field>
                 <mat-label>Data uprawnienia do gry</mat-label>
@@ -145,31 +145,31 @@
                 <input matInput placeholder="Ostatni klub" formControlName="lastClub">
               </mat-form-field>
             </div>
-            <div class="form-row p-2">
-              <div class="col">
-                <mat-form-field>
-                  <mat-label>Typ transferu</mat-label>
-                  <mat-select formControlName="transferType">
-                    <mat-option *ngFor="let transfer of keys" [value]="transfer.value">
-                      {{transfer.key}}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </div>
-              <div class="col">
-                <mat-form-field>
-                  <input matInput placeholder="Domyślny nr koszulki" formControlName="dressNumber">
-                </mat-form-field>
-              </div>
+          </div>
+          <div class="form-row p-2">
+            <div class="col">
+              <mat-form-field>
+                <mat-label>Typ transferu</mat-label>
+                <mat-select formControlName="transferType">
+                  <mat-option *ngFor="let transfer of keys" [value]="transfer.value">
+                    {{transfer.key}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field>
+                <input matInput placeholder="Domyślny nr koszulki" formControlName="dressNumber">
+              </mat-form-field>
             </div>
           </div>
         </div>
-        <div class="modal-footer">
-          <button mat-raised-button (click)="submit()" color="primary"
-                  type="submit"
-                  class="float-right">Zapisz zawodnika
-          </button>
-        </div>
+      </div>
+      <div class="modal-footer">
+        <button mat-raised-button (click)="submit()" color="primary"
+                type="submit"
+                class="float-right">Zapisz zawodnika
+        </button>
       </div>
     </form>
   </mat-step>

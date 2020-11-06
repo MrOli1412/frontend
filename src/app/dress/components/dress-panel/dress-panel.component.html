@@ -1,13 +1,38 @@
-<h4 mat-dialog-title>Formularz</h4>
-<div mat-dialog-content style="min-width: 500px">
-      <form [formGroup]="dressForm" class="pt-2">
-        <ng-template matStepLabel>Dane podstawowe</ng-template>
-        <mat-form-field class="col-md-12S">
-          <mat-label>Kolor strojów</mat-label>
-          <input matInput placeholder="Imię" formControlName="color" required>
-        </mat-form-field>
-        <div class="pt-2">
-          <button mat-button  class="float-right" color="primary" (click)="submit()">Zapisz</button>
+<!--<h4 mat-dialog-title>Formularz</h4>-->
+<!--<div mat-dialog-content style="min-width: 500px">-->
+<!--      <form [formGroup]="dressForm" class="pt-2">-->
+<!--        <ng-template matStepLabel>Dane podstawowe</ng-template>-->
+<!--        <mat-form-field class="col-md-12S">-->
+<!--          <mat-label>Kolor strojów</mat-label>-->
+<!--          <input matInput placeholder="Imię" formControlName="color" required>-->
+<!--        </mat-form-field>-->
+<!--        <div class="pt-2">-->
+<!--          <button mat-button  class="float-right" color="primary" (click)="submit()">Zapisz</button>-->
+<!--        </div>-->
+<!--      </form>-->
+<!--</div>-->
+
+<div class="modal-header text-center">
+  <h4 class="modal-title">Dodaj stroje</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss()">
+    <span aria-hidden="false">&times;</span>
+  </button>
+</div>
+<div class="modal-body" ngbAutofocus>
+  <div class="container">
+    <form [formGroup]="dressForm" (ngSubmit)="submit()">
+      <div class="form-row p-2">
+        <div class="col ">
+          <mat-form-field>
+            <mat-label>Kolor strojów</mat-label>
+            <input matInput placeholder="Imię" formControlName="color" required>
+          </mat-form-field>
         </div>
-      </form>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="modal-footer">
+  <button mat-raised-button [disabled]="!dressForm.valid"  color="primary" type="submit"
+          class="float-right">Zapisz</button>
 </div>

@@ -1,9 +1,7 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {StaffService} from "../../../staff/service/staff.service";
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {StaffPosition} from "../../../shared/models/staff-position";
 import {DressService} from "../../service/dress.service";
+import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-dress-panel',
@@ -13,31 +11,29 @@ import {DressService} from "../../service/dress.service";
 export class DressPanelComponent implements OnInit {
 
   dressForm: FormGroup;
-  teamId;
+  @Input() teamId: string;
 
   constructor(private fb: FormBuilder,
               private dressService: DressService,
-              public dialogRef: MatDialogRef<DressPanelComponent>,
-              @Inject(MAT_DIALOG_DATA) public data) {
+              public activeModal: NgbActiveModal) {
   }
 
   ngOnInit(): void {
-    this.teamId = this.data.teamId;
-
     this.createForm();
   }
 
   private createForm() {
     this.dressForm = this.fb.group({
-      color: ['', [Validators.required]],
+      color: ['', [Validators.required]]
     })
 
   }
 
   submit() {
     this.dressService.saveDress(this.teamId, this.dressForm.getRawValue()).subscribe((value) => {
-        this.dialogRef.close(value);
+        this.activeModal.close(value);
       }, error => {
+        console.log(error);
 
       }
     )

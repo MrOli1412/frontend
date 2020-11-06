@@ -5,6 +5,8 @@ import {ActivatedRoute} from "@angular/router";
 import {ToastrService} from "ngx-toastr";
 import {MatDialog} from "@angular/material/dialog";
 import {DressPanelComponent} from "../dress-panel/dress-panel.component";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {PlayerPanelComponent} from "../../../player/components/player-panel/player-panel.component";
 
 @Component({
   selector: 'app-dress-list',
@@ -20,7 +22,7 @@ export class DressListComponent implements OnInit {
   constructor(private dressService: DressService,
               private route: ActivatedRoute,
               private toaster: ToastrService,
-              public dialog: MatDialog) {
+              private modalService: NgbModal) {
   }
 
   ngOnInit(): void {
@@ -43,21 +45,20 @@ export class DressListComponent implements OnInit {
   }
 
   addDress() {
-    const dialogRef = this.dialog.open(DressPanelComponent,
-      {
-        data:{
-          teamId:this.getTeamId
-        }
+    const modelRef = this.modalService.open(DressPanelComponent, {centered: true});
+    modelRef.componentInstance.teamId = this.getTeamId;
+    modelRef.result.then((result) => {
+      console.log(result);
+      if (result) {
+        this.getDress();
       }
-    );
-    dialogRef.afterClosed().subscribe(value => {
-
+    }).catch((reason) => {
     });
   }
 
   filterDress(text) {
     if (text) {
-      this.filteredDress = this.dress.filter(player => JSON.stringify(player).includes(text.toLowerCase()));
+      this.filteredDress = this.dress.filter(dress => JSON.stringify(dress).includes(text.toLowerCase()));
     } else {
       this.filteredDress = this.dress;
     }

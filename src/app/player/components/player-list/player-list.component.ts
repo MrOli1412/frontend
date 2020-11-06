@@ -47,7 +47,7 @@ export class PlayerListComponent implements OnInit {
   }
 
   addPlayer() {
-    const modelRef = this.modalService.open(PlayerPanelComponent, {centered: true});
+    const modelRef = this.modalService.open(PlayerPanelComponent, {centered: true, size: 'lg'});
     modelRef.componentInstance.teamId = this.getTeamId;
     modelRef.result.then((result) => {
       console.log(result);

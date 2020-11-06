@@ -1,35 +1,97 @@
-<h4 mat-dialog-title>Formularz</h4>
-<div mat-dialog-content>
-  <mat-horizontal-stepper>
-    <mat-step [stepControl]="staffForm">
-      <form [formGroup]="staffForm" class="pt-2">
-        <ng-template matStepLabel>Dane podstawowe</ng-template>
-        <mat-form-field class="col-md-4">
-          <mat-label>Imię</mat-label>
-          <input matInput placeholder="Imię" formControlName="firstName" required>
-        </mat-form-field>
-        <mat-form-field class="col-md-4">
-          <mat-label>Nazwisko</mat-label>
-          <input matInput placeholder="Nazwisko" formControlName="lastName" required>
-        </mat-form-field>
-        <mat-form-field class="col-md-4">
-          <mat-label>Numer licencji</mat-label>
-          <input matInput placeholder="Numer licencji" formControlName="licenseNumber">
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>Pozycja</mat-label>
-          <mat-select formControlName="position">
-            <mat-option *ngFor="let position of positions" [value]="position.value">{{position.key}}</mat-option>
-          </mat-select>
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>Inna funckja</mat-label>
-          <input matInput placeholder="Inna funkcja" formControlName="odderFunction">
-        </mat-form-field>
-        <div class="pt-2">
-          <button mat-button matStepperNext class="float-right" color="primary" (click)="submit()">Zapisz</button>
-        </div>
-      </form>
-    </mat-step>
-  </mat-horizontal-stepper>
+<!--<h4 mat-dialog-title>Formularz</h4>-->
+<!--<div mat-dialog-content>-->
+<!--  <mat-horizontal-stepper>-->
+<!--    <mat-step [stepControl]="staffForm">-->
+<!--      <form [formGroup]="staffForm" class="pt-2">-->
+<!--        <ng-template matStepLabel>Dane podstawowe</ng-template>-->
+<!--        <mat-form-field class="col-md-4">-->
+<!--          <mat-label>Imię</mat-label>-->
+<!--          <input matInput placeholder="Imię" formControlName="firstName" required>-->
+<!--        </mat-form-field>-->
+<!--        <mat-form-field class="col-md-4">-->
+<!--          <mat-label>Nazwisko</mat-label>-->
+<!--          <input matInput placeholder="Nazwisko" formControlName="lastName" required>-->
+<!--        </mat-form-field>-->
+<!--        <mat-form-field class="col-md-4">-->
+<!--          <mat-label>Numer licencji</mat-label>-->
+<!--          <input matInput placeholder="Numer licencji" formControlName="licenseNumber">-->
+<!--        </mat-form-field>-->
+<!--        <mat-form-field>-->
+<!--          <mat-label>Pozycja</mat-label>-->
+<!--          <mat-select formControlName="position">-->
+<!--            <mat-option *ngFor="let position of positions" [value]="position.value">{{position.key}}</mat-option>-->
+<!--          </mat-select>-->
+<!--        </mat-form-field>-->
+<!--        <mat-form-field>-->
+<!--          <mat-label>Inna funckja</mat-label>-->
+<!--          <input matInput placeholder="Inna funkcja" formControlName="odderFunction">-->
+<!--        </mat-form-field>-->
+<!--        <div class="pt-2">-->
+<!--          <button mat-button matStepperNext class="float-right" color="primary" (click)="submit()">Zapisz</button>-->
+<!--        </div>-->
+<!--      </form>-->
+<!--    </mat-step>-->
+<!--  </mat-horizontal-stepper>-->
+<!--</div>-->
+
+
+<div class="modal-header text-center">
+  <h4 class="modal-title">Dodaj osobę funkcyjną</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss()">
+    <span aria-hidden="false">&times;</span>
+  </button>
 </div>
+<mat-horizontal-stepper [linear]="true" #stepper>
+  <mat-step [stepControl]="staffForm">
+    <ng-template matStepLabel>Plik z zawodnikami</ng-template>
+    <div class="modal-body" ngbAutofocus>
+      <div class="container">
+        <form [formGroup]="staffForm" (ngSubmit)="submit()">
+          <div class="form-row p-2">
+            <div class="col ">
+              <mat-form-field>
+                <mat-label>Imię</mat-label>
+                <input matInput placeholder="Imię" formControlName="firstName" required>
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field>
+                <mat-label>Nazwisko</mat-label>
+                <input matInput placeholder="Nazwisko" formControlName="lastName" required>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="form-row p-2">
+            <div class="col">
+              <mat-form-field>
+                <mat-label>Numer licencji</mat-label>
+                <input matInput placeholder="Numer licencji" formControlName="licenseNumber">
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field>
+                <mat-label>Inna funckja</mat-label>
+                <input matInput placeholder="Inna funkcja" formControlName="odderFunction">
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="form-row p-2">
+            <div class="col">
+              <mat-form-field>
+                <mat-label>Pozycja</mat-label>
+                <mat-select formControlName="position">
+                  <mat-option *ngFor="let position of positions" [value]="position.value">{{position.key}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button mat-raised-button [disabled]="!staffForm.valid"  color="primary" type="button"
+              class="float-right">Zapisz
+      </button>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>
