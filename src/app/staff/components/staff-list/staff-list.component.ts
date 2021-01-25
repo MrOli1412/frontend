@@ -5,6 +5,8 @@ import {ActivatedRoute} from "@angular/router";
 import {ToastrService} from "ngx-toastr";
 import {StaffPanelComponent} from "../staff-panel/staff-panel.component";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {StaffPosition} from "../../../shared/models/staff-position";
+import {UtilService} from "../../../util/util.service";
 
 @Component({
     selector: 'app-staff-list',
@@ -15,15 +17,22 @@ export class StaffListComponent implements OnInit {
     staffPersons: ClubPerson[];
     filteredStaff: ClubPerson[] = [];
 
+
     constructor(private staffService: StaffService,
                 private route: ActivatedRoute,
                 private toaster: ToastrService,
+                private utilService: UtilService,
                 public modalService: NgbModal) {
     }
 
     ngOnInit(): void {
+
         this.getStaffPersons();
     }
+
+   getValueFromKey(key){
+    return StaffPosition[key];
+  }
 
     getStaffPersons() {
         this.staffService.getStaffForTeam(this.getTeamId).subscribe(data => {

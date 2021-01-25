@@ -1,8 +1,13 @@
+import {kebabToCamelCase} from "codelyzer/util/utils";
+
 export enum StaffPosition {
-  COACH = 'COACH',
-  SECOND_COACH = 'SECOND_COACH',
-  MASSEUR = 'MASSEUR',
-  MEDICAL_CARER = 'MEDICAL_CARER',
-  TEAM_MANAGER = 'TEAM_MANAGER',
+  COACH = 'Trener',
+  SECOND_COACH = 'Drugi trener',
+  MASSEUR = 'Masażysta',
+  MEDICAL_CARER = 'Opiekun medyczny',
+  TEAM_MANAGER = 'Osoba funkcyjna',
+
+
 
 }
+
