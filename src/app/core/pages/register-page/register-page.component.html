@@ -39,68 +39,92 @@
 
 
 <div class="card">
-<div class="card-header">
-  <h3 class="display-4 text-center">Rejestracja</h3>
-</div>
-<div class="card-body">
-  <form class="text-center" id="registerForm" [formGroup]="registerFormGroup" (ngSubmit)="register()">
-    <div class="form-row p-2">
-      <div class="col-md-4 offset-md-4">
-        <mat-form-field appearance="outline">
-          <mat-label>Nazwa użytkownika</mat-label>
-          <input matInput placeholder="Login" formControlName="username" required>
-          <mat-error *ngIf="username.hasError('required')">Nazwa użytkownika jest wymagana</mat-error>
-        </mat-form-field>
+  <div class="card-header">
+    <h3 class="display-4 text-center">Rejestracja</h3>
+  </div>
+  <div class="card-body">
+    <form class="text-center" id="registerForm" [formGroup]="registerFormGroup" (ngSubmit)="register()">
+      <div class="form-row p-2">
+        <div class="col-md-4 offset-md-2">
+          <mat-form-field appearance="outline">
+            <mat-label>Nazwa użytkownika</mat-label>
+            <input matInput placeholder="Login" formControlName="username" required>
+            <mat-error *ngIf="username.hasError('required')">Nazwa użytkownika jest wymagana</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-4">
+          <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input matInput placeholder="email" formControlName="email" type="email" required>
+            <mat-error *ngIf="email.hasError('required')">Email jest wymagany</mat-error>
+            <mat-error *ngIf="email.hasError('email')">Zła forma maila</mat-error>
+          </mat-form-field>
+        </div>
       </div>
-    </div>
-    <div class="form-row p-2">
-      <div class="col-md-4 offset-md-4">
-        <mat-form-field appearance="outline">
-          <mat-label>Email</mat-label>
-          <input matInput placeholder="email" formControlName="email" type="email" required>
-          <mat-error *ngIf="email.hasError('required')">Email jest wymagany</mat-error>
-          <mat-error *ngIf="email.hasError('email')">Zła forma maila</mat-error>
 
-        </mat-form-field>
+      <div class="form-row p-2">
+        <div class="col-md-4 offset-md-2">
+          <mat-form-field appearance="outline">
+            <mat-label>Hasło</mat-label>
+            <input matInput placeholder="Password" type="password" formControlName="password" required>
+            <mat-error *ngIf="password.hasError('required')">Hasło jest wymagane</mat-error>
+          </mat-form-field>
+        </div>
+        <!--    </div>-->
+        <!--    <div class="form-row p-2">-->
+        <div class="col-md-4">
+          <mat-form-field appearance="outline">
+            <mat-label>Powtórz hasło</mat-label>
+            <input matInput placeholder="Password again" type="password" formControlName="secondPassword" required>
+            <mat-error *ngIf="secondPassword.hasError('required')">Hasło jest wymagane</mat-error>
+          </mat-form-field>
+        </div>
       </div>
-    </div>
-    <div class="form-row p-2">
-      <div class="col-md-4 offset-md-4">
-        <mat-form-field appearance="outline">
-          <mat-label>Nazwa klubu</mat-label>
-          <input matInput placeholder="Nazwa klubu" formControlName="clubName" required>
-          <mat-error *ngIf="clubName.hasError('required')">Nazwa klubu jest wymagana</mat-error>
+      <div class="form-row p-2">
+<!--        <div class="col-md-4 offset-md-1">-->
+<!--          <mat-form-field appearance="outline">-->
+<!--            <mat-label>Nazwa klubu</mat-label>-->
+<!--            <input matInput placeholder="Nazwa klubu" formControlName="clubName" required>-->
+<!--            <mat-error *ngIf="clubName.hasError('required')">Nazwa klubu jest wymagana</mat-error>-->
+<!--          </mat-form-field>-->
+<!--        </div>-->
+        <div class="col-md-4 ">
+          <mat-form-field>
+            <mat-label>Województwo</mat-label>
+            <mat-select formControlName="state">
+              <mat-option *ngFor="let state of states" [value]="state.id">{{state.stateName}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6 ">
+          <mat-form-field>
+            <mat-label>Liga</mat-label>
+            <mat-select formControlName="league" >
+              <mat-option *ngFor="let league of leagues" [value]="league.id">{{league.leagueName}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
 
-        </mat-form-field>
+        <div class="col-md-2">
+          <mat-form-field>
+            <mat-label>Drużyna</mat-label>
+            <mat-select formControlName="team">
+              <mat-option *ngFor="let team of teams" [value]="team.id">{{team.teamName}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
       </div>
-    </div>
-    <div class="form-row p-2">
-      <div class="col-md-4 offset-md-4">
-        <mat-form-field appearance="outline">
-          <mat-label>Hasło</mat-label>
-          <input matInput placeholder="Password" type="password" formControlName="password" required>
-          <mat-error *ngIf="password.hasError('required')">Hasło jest wymagane</mat-error>
-        </mat-form-field>
+
+      <div class="form-row p-2">
+        <div class="col-md-4 offset-md-4" title="Title">
+          <button class="btn btn-primary ml-2" data-toggle="tooltip" data-bs-tooltip="" type="submit">Zarejestruj
+          </button>
+        </div>
       </div>
-    </div>
-    <div class="form-row p-2">
-      <div class="col-md-4 offset-md-4">
-        <mat-form-field appearance="outline">
-          <mat-label>Powtórz hasło</mat-label>
-          <input matInput placeholder="Password again" type="password" formControlName="secondPassword" required>
-          <mat-error *ngIf="secondPassword.hasError('required')">Hasło jest wymagane</mat-error>
-        </mat-form-field>
+      <div class="form-row">
+        <div class="col-md-4 offset-md-4" title="Title"><span class="text-center"><a
+          routerLink="/login">Powrót do logowania</a></span></div>
       </div>
-    </div>
-    <div class="form-row p-2">
-      <div class="col-md-4 offset-md-4" title="Title">
-        <button class="btn btn-primary ml-2" data-toggle="tooltip" data-bs-tooltip="" type="submit">Zarejestruj</button>
-      </div>
-    </div>
-    <div class="form-row">
-      <div class="col-md-4 offset-md-4" title="Title"><span class="text-center"><a
-        routerLink="/login">Powrót do logowania</a></span></div>
-    </div>
-  </form>
-</div>
+    </form>
+  </div>
 </div>
