@@ -25,4 +25,8 @@ export class TeamService {
   getShortInfo(id: string) {
     return this.httpClient.get<TeamShortInfo>(this.URL + this.PREFIX + `/` + id);
   }
+
+  generateTeams() {
+    return this.httpClient.get<Team[]>(`${this.URL}${this.PREFIX}/generate`)
+  }
 }

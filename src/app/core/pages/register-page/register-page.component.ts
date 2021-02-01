@@ -37,7 +37,6 @@ export class RegisterPageComponent implements OnInit, OnDestroy {
       password: ['', [Validators.required]],
       secondPassword: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      clubName: ['', [Validators.required]],
       state: [{value: '', disabled: true}],
       league: [{value: '', disabled: true}],
       team: [{value: '', disabled: true}]
@@ -82,8 +81,9 @@ export class RegisterPageComponent implements OnInit, OnDestroy {
     return this.registerFormGroup.get('email');
   }
 
-  get clubName() {
-    return this.registerFormGroup.get('clubName');
+
+  get pzpnTeamId() {
+    return this.registerFormGroup.get('team');
   }
 
 
@@ -93,8 +93,9 @@ export class RegisterPageComponent implements OnInit, OnDestroy {
       password: this.password.value,
       username: this.username.value,
       club: {
-        clubName: this.clubName.value
-      }
+        clubName: this.teams.find(team => team.id === this.pzpnTeamId.value).teamName
+      },
+      pzpnTeamId: this.pzpnTeamId.value
     };
     this.registerService.createAccount(this.user).subscribe(data => {
       console.log(data)

@@ -11,8 +11,9 @@ export interface Team {
 }
 
 export interface TeamShortInfo {
-  teamName:string;
-  countPlayers:number;
-  countMatches:number;
-  countDress:number;
+  teamName: string;
+  countPlayers: number;
+  countMatches: number;
+  countDress: number;
+  isGeneratedFormPZPN: boolean;
 }

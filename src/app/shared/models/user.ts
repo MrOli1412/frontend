@@ -6,4 +6,5 @@ export interface User {
   email?: string;
   password: string;
   club?: Club;
+  pzpnTeamId?: string;
 }

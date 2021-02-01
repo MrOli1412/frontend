@@ -43,7 +43,7 @@
 <!--  </div>-->
 <!--</ng-container>-->
 
-<div class="container">
+<div class="container" *ngIf="club">
   <div class="row">
     <div class="col">
       <h1 class="display-4 text-center"><strong><em>{{club.clubName}}</em></strong></h1>
@@ -53,15 +53,16 @@
 <div class="container">
   <div class="row m-2">
     <div class="col"><button class="btn btn-info" type="button" (click)="addTeam(null)">Dodaj drużynę</button></div>
+    <div class="col text-right"><button class="btn btn-info" type="button" (click)="generateTeams()">Importuj drużyny z łączynaspilka</button></div>
   </div>
-  <div class="row m-2">
+  <div class="row m-2" *ngIf="club?.teams.length">
     <div class="col">
-      <div role="tablist" id="accordion-1" *ngFor="let team of club.teams; let i = index ">
+      <div role="tablist" id="accordion-{{i}}" *ngFor="let team of club.teams; let i = index ">
         <div class="card">
           <div class="card-header" role="tab">
-            <h5 class="mb-0"><a data-toggle="collapse" aria-expanded="false" attr.aria-controls="accordion-1 .item-{{i}}" href="#accordion-1 .item-{{i}}">{{team.teamName}}</a></h5>
+            <h5 class="mb-0"><a data-toggle="collapse" aria-expanded="false" attr.aria-controls="accordion-{{i}} .item-{{i}}" href="#accordion-{{i}} .item-{{i}}">{{team.teamName}}</a></h5>
           </div>
-          <div class="collapse hide item-{{i}}" role="tabpanel" data-parent="#accordion-1">
+          <div class="collapse hide item-{{i}}" role="tabpanel" data-parent="#accordion-{{i}}">
             <div class="card-body">
               <div class="row   row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-4 row-cols-xl-4 text-center">
                 <div class="col team-subside"><button class="btn btn-secondary btn-block" type="button" [routerLink]="['../players/'+team.id]">Zawodnicy</button></div>

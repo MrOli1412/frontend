@@ -40,7 +40,6 @@ export class ClubPageComponent implements OnInit {
 
   private loadClub() {
     this.clubService.getClub().subscribe(data => {
-      console.log(data);
       this.club = data;
       localStorage.setItem('clubName', data.clubName);
     }, error => {
@@ -50,10 +49,13 @@ export class ClubPageComponent implements OnInit {
   }
 
   addTeam(team: Team = null) {
-    this.modalService.open(TeamPanelComponent, {ariaLabelledBy: 'modal-basic-title', centered: true}).result.then((result) => {
+    this.modalService.open(TeamPanelComponent, {
+      ariaLabelledBy: 'modal-basic-title',
+      centered: true
+    }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
-      this.toaster.success('Drużyna została stworzona','Sukces')
-          this.loadClub();
+      this.toaster.success('Drużyna została stworzona', 'Sukces')
+      this.loadClub();
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
@@ -67,6 +69,7 @@ export class ClubPageComponent implements OnInit {
     //   }
     // })
   }
+
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';
@@ -75,5 +78,11 @@ export class ClubPageComponent implements OnInit {
     } else {
       return `with: ${reason}`;
     }
+  }
+
+  generateTeams() {
+    this.teamService.generateTeams().subscribe(value => {
+
+    })
   }
 }
